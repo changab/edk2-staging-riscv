@@ -1794,8 +1794,8 @@
   # @Prompt SMBIOS version.
   gEfiMdeModulePkgTokenSpaceGuid.PcdSmbiosVersion|0x0303|UINT16|0x00010055
 
-  ## SMBIOS Docrev field in SMBIOS 3.0 (64-bit) Entry Point Structure.
-  # @Prompt SMBIOS Docrev field in SMBIOS 3.0 (64-bit) Entry Point Structure.
+  ## SMBIOS Docrev field in SMBIOS 3.3 (64-bit) Entry Point Structure.
+  # @Prompt SMBIOS Docrev field in SMBIOS 3.3 (64-bit) Entry Point Structure.
   gEfiMdeModulePkgTokenSpaceGuid.PcdSmbiosDocRev|0x0|UINT8|0x0001006A
 
   ## SMBIOS produce method.
