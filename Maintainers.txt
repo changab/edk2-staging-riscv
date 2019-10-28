@@ -98,6 +98,11 @@ F: */Arm/
 M: Leif Lindholm <leif@nuviainc.com>
 M: Ard Biesheuvel <ard.biesheuvel@linaro.org>
 
+RISCV64
+F: */RiscV64/
+M: Abner Chang <abner.chang@hpe.com>
+R: Gilbert Chen <gilbert.chen@hpe.com>
+
 EDK II Continuous Integration:
 ------------------------------
 .azurepipelines/
@@ -439,6 +444,16 @@ PcAtChipsetPkg
 F: PcAtChipsetPkg/
 W: https://github.com/tianocore/tianocore.github.io/wiki/PcAtChipsetPkg
 M: Ray Ni <ray.ni@intel.com>
+
+RiscVPkg: RISCV64 architecture modules
+F: RiscVPkg/
+M: Abner Chang <abner.chang@hpe.com>
+R: Gilbert Chen <gilbert.chen@hpe.com>
+
+RiscVPlatformPkg: RISC-V platform modules
+F: RiscVPlatformPkg/
+M: Abner Chang <abner.chang@hpe.com>
+R: Gilbert Chen <gilbert.chen@hpe.com>
 
 SecurityPkg
 F: SecurityPkg/
