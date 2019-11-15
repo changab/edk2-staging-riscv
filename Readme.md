@@ -148,7 +148,6 @@ as possible as we can. Currently EDK II contains two submodules
 
 - CryptoPkg/Library/OpensslLib/openssl
 - ArmPkg/Library/ArmSoftFloatLib/berkeley-softfloat-3
-- RiscVPkg/Library/RiscVOpensbiLib/opensbi
 
 The latter one is actually required by previous one. It's inevitable
 in openssl-1.1.1 (since stable201905) for floating point parameter
