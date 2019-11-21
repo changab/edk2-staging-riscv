@@ -32,21 +32,13 @@ RiscVPlatformPkg  - RISC-V platform package. This package provides RISC-V
                     platform common modules, libraries, PCDs and definitoins.
 ```
 ## Toolchain of RISC-V EDK2 port
-Due to not yet tracked down bugs, only the following toolchain is known to
-produce bootoable binaries.
-https://github.com/riscv/riscv-gnu-toolchain at commit ID 64879b24.
-The commit ID 64879b24 of riscv-gnu-toolchain repository is verified to build
-RISC-V edk2 platform and boot to EFI SHELL successfully.
-You have to clone the toolchain from above link and check out commit:64879b24
-for building RISC-V edk2 port.
-The commit later than 64879b24 causes system hangs at the PEI phase to DXE phase
-transition. We are still figuring out the root cause.
+https://github.com/riscv/riscv-gnu-toolchain
+You have to clone the toolchain from above link for building RISC-V edk2 port.
 
 ## EDK2 Build Target
 "RISCV64" ARCH is the RISC-V architecture which currently supported and verified.
 The verified RISC-V toolchain is https://github.com/riscv/riscv-gnu-toolchain
-@64879b24 as mentioned above, toolchain tag is "GCC5" which is declared in
-tools_def.txt.
+and the toolchain tag is "GCC5" which is declared in tools_def.txt.
 Below is the edk2 build options for building RISC-V RV64 platform,
 ```
 build -a RISCV64 -p Platform/{Vendor}/{Platform}/{Platform}.dsc -t GCC5
