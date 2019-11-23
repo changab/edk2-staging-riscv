@@ -37,7 +37,6 @@
   0|DEFAULT
 
 [LibraryClasses.common]
-  RealTimeClockLib|RiscVPlatformPkg/Library/RealTimeClockLibNull/RealTimeClockLibNull.inf
   RiscVOpensbiPlatformLib|RiscVPlatformPkg/Library/OpensbiPlatformLibNull/OpensbiPlatformLibNull.inf
   RiscVCpuLib|RiscVPkg/Library/RiscVCpuLib/RiscVCpuLib.inf
   RiscVOpensbiLib|RiscVPkg/Library/RiscVOpensbiLib/RiscVOpensbiLib.inf
