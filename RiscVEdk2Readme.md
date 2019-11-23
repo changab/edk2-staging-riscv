@@ -33,7 +33,17 @@ RiscVPlatformPkg  - RISC-V platform package. This package provides RISC-V
 ```
 ## Toolchain of RISC-V EDK2 port
 https://github.com/riscv/riscv-gnu-toolchain
-You have to clone the toolchain from above link for building RISC-V edk2 port.
+You have to clone the toolchain from above link and follow the installation
+guidance mentioned in README.md for building RISC-V edk2 port.
+
+This toolchain has been tested on below Linux distribution,
+Distributor ID: Ubuntu
+Description:    Ubuntu 16.04.6 LTS
+Release:        16.04
+GCC 9.2.0 is currently supported in RISC-V GNU toolchain.
+
+Build issues may happen on other Linux distributions and have not been discoverd
+due to it is out of edk2 RISC-V contribution scope.
 
 ## EDK2 Build Target
 "RISCV64" ARCH is the RISC-V architecture which currently supported and verified.
