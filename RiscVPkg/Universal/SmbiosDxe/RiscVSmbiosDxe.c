@@ -9,8 +9,6 @@
 
 #include "RiscVSmbiosDxe.h"
 
-#define RISCV_SMBIOS_DEBUG_INFO 1
-
 STATIC EFI_SMBIOS_PROTOCOL   *mSmbios;
 
 /**
@@ -50,21 +48,19 @@ BuildSmbiosType7 (
     return Status;
   }
   DEBUG ((DEBUG_INFO, "SMBIOS Type 7 was added. SMBIOS Handle: 0x%x\n", Handle));
-#if RISCV_SMBIOS_DEBUG_INFO
-  DEBUG ((DEBUG_INFO, "     Cache belone to processor GUID: %g\n", &Type7DataHob->PrcessorGuid));
-  DEBUG ((DEBUG_INFO, "     Cache belone processor  UID: %d\n", Type7DataHob->ProcessorUid));
-  DEBUG ((DEBUG_INFO, "     ==============================\n"));
-  DEBUG ((DEBUG_INFO, "     Socket Designation: %d\n", Type7DataHob->SmbiosType7Cache.SocketDesignation));
-  DEBUG ((DEBUG_INFO, "     Cache Configuration: 0x%x\n", Type7DataHob->SmbiosType7Cache.CacheConfiguration));
-  DEBUG ((DEBUG_INFO, "     Maximum Cache Size: 0x%x\n", Type7DataHob->SmbiosType7Cache.MaximumCacheSize));
-  DEBUG ((DEBUG_INFO, "     Installed Size: 0x%x\n", Type7DataHob->SmbiosType7Cache.InstalledSize));
-  DEBUG ((DEBUG_INFO, "     Supported SRAM Type: 0x%x\n", Type7DataHob->SmbiosType7Cache.SupportedSRAMType));
-  DEBUG ((DEBUG_INFO, "     Current SRAMT ype: 0x%x\n", Type7DataHob->SmbiosType7Cache.CurrentSRAMType));
-  DEBUG ((DEBUG_INFO, "     Cache Speed: 0x%x\n", Type7DataHob->SmbiosType7Cache.CacheSpeed));
-  DEBUG ((DEBUG_INFO, "     Error Correction Type: 0x%x\n", Type7DataHob->SmbiosType7Cache.ErrorCorrectionType));
-  DEBUG ((DEBUG_INFO, "     System Cache Type: 0x%x\n", Type7DataHob->SmbiosType7Cache.SystemCacheType));
-  DEBUG ((DEBUG_INFO, "     Associativity: 0x%x\n", Type7DataHob->SmbiosType7Cache.Associativity));
-#endif
+  DEBUG ((DEBUG_VERBOSE, "     Cache belone to processor GUID: %g\n", &Type7DataHob->PrcessorGuid));
+  DEBUG ((DEBUG_VERBOSE, "     Cache belone processor  UID: %d\n", Type7DataHob->ProcessorUid));
+  DEBUG ((DEBUG_VERBOSE, "     ==============================\n"));
+  DEBUG ((DEBUG_VERBOSE, "     Socket Designation: %d\n", Type7DataHob->SmbiosType7Cache.SocketDesignation));
+  DEBUG ((DEBUG_VERBOSE, "     Cache Configuration: 0x%x\n", Type7DataHob->SmbiosType7Cache.CacheConfiguration));
+  DEBUG ((DEBUG_VERBOSE, "     Maximum Cache Size: 0x%x\n", Type7DataHob->SmbiosType7Cache.MaximumCacheSize));
+  DEBUG ((DEBUG_VERBOSE, "     Installed Size: 0x%x\n", Type7DataHob->SmbiosType7Cache.InstalledSize));
+  DEBUG ((DEBUG_VERBOSE, "     Supported SRAM Type: 0x%x\n", Type7DataHob->SmbiosType7Cache.SupportedSRAMType));
+  DEBUG ((DEBUG_VERBOSE, "     Current SRAMT ype: 0x%x\n", Type7DataHob->SmbiosType7Cache.CurrentSRAMType));
+  DEBUG ((DEBUG_VERBOSE, "     Cache Speed: 0x%x\n", Type7DataHob->SmbiosType7Cache.CacheSpeed));
+  DEBUG ((DEBUG_VERBOSE, "     Error Correction Type: 0x%x\n", Type7DataHob->SmbiosType7Cache.ErrorCorrectionType));
+  DEBUG ((DEBUG_VERBOSE, "     System Cache Type: 0x%x\n", Type7DataHob->SmbiosType7Cache.SystemCacheType));
+  DEBUG ((DEBUG_VERBOSE, "     Associativity: 0x%x\n", Type7DataHob->SmbiosType7Cache.Associativity));
 
   *SmbiosHandle = Handle;
   return EFI_SUCCESS;
@@ -143,35 +139,33 @@ BuildSmbiosType4 (
     return Status;
   }
   DEBUG ((DEBUG_INFO, "SMBIOS Type 4 was added. SMBIOS Handle: 0x%x\n", Processor));
-#if RISCV_SMBIOS_DEBUG_INFO
-  DEBUG ((DEBUG_INFO, "     Socket StringID: %d\n", Type4HobData->SmbiosType4Processor.Socket));
-  DEBUG ((DEBUG_INFO, "     Processor Type: 0x%x\n", Type4HobData->SmbiosType4Processor.ProcessorType));
-  DEBUG ((DEBUG_INFO, "     Processor Family: 0x%x\n", Type4HobData->SmbiosType4Processor.ProcessorFamily));
-  DEBUG ((DEBUG_INFO, "     Processor Manufacture StringID: %d\n", Type4HobData->SmbiosType4Processor.ProcessorManufacture));
-  DEBUG ((DEBUG_INFO, "     Processor Id: 0x%x:0x%x\n", \
+  DEBUG ((DEBUG_VERBOSE, "     Socket StringID: %d\n", Type4HobData->SmbiosType4Processor.Socket));
+  DEBUG ((DEBUG_VERBOSE, "     Processor Type: 0x%x\n", Type4HobData->SmbiosType4Processor.ProcessorType));
+  DEBUG ((DEBUG_VERBOSE, "     Processor Family: 0x%x\n", Type4HobData->SmbiosType4Processor.ProcessorFamily));
+  DEBUG ((DEBUG_VERBOSE, "     Processor Manufacture StringID: %d\n", Type4HobData->SmbiosType4Processor.ProcessorManufacture));
+  DEBUG ((DEBUG_VERBOSE, "     Processor Id: 0x%x:0x%x\n", \
           Type4HobData->SmbiosType4Processor.ProcessorId.Signature, Type4HobData->SmbiosType4Processor.ProcessorId.FeatureFlags));
-  DEBUG ((DEBUG_INFO, "     Processor Version StringID: %d\n", Type4HobData->SmbiosType4Processor.ProcessorVersion));
-  DEBUG ((DEBUG_INFO, "     Voltage: 0x%x\n", Type4HobData->SmbiosType4Processor.Voltage));
-  DEBUG ((DEBUG_INFO, "     External Clock: 0x%x\n", Type4HobData->SmbiosType4Processor.ExternalClock));
-  DEBUG ((DEBUG_INFO, "     Max Speed: 0x%x\n", Type4HobData->SmbiosType4Processor.MaxSpeed));
-  DEBUG ((DEBUG_INFO, "     Current Speed: 0x%x\n", Type4HobData->SmbiosType4Processor.CurrentSpeed));
-  DEBUG ((DEBUG_INFO, "     Status: 0x%x\n", Type4HobData->SmbiosType4Processor.Status));
-  DEBUG ((DEBUG_INFO, "     ProcessorUpgrade: 0x%x\n", Type4HobData->SmbiosType4Processor.ProcessorUpgrade));
-  DEBUG ((DEBUG_INFO, "     L1 Cache Handle: 0x%x\n", Type4HobData->SmbiosType4Processor.L1CacheHandle));
-  DEBUG ((DEBUG_INFO, "     L2 Cache Handle: 0x%x\n",Type4HobData->SmbiosType4Processor.L2CacheHandle));
-  DEBUG ((DEBUG_INFO, "     L3 Cache Handle: 0x%x\n", Type4HobData->SmbiosType4Processor.L3CacheHandle));
-  DEBUG ((DEBUG_INFO, "     Serial Number StringID: %d\n", Type4HobData->SmbiosType4Processor.SerialNumber));
-  DEBUG ((DEBUG_INFO, "     Asset Tag StringID: %d\n", Type4HobData->SmbiosType4Processor.AssetTag));
-  DEBUG ((DEBUG_INFO, "     Part Number StringID: %d\n", Type4HobData->SmbiosType4Processor.PartNumber));
-  DEBUG ((DEBUG_INFO, "     Core Count: %d\n", Type4HobData->SmbiosType4Processor.CoreCount));
-  DEBUG ((DEBUG_INFO, "     Enabled CoreCount: %d\n", Type4HobData->SmbiosType4Processor.EnabledCoreCount));
-  DEBUG ((DEBUG_INFO, "     Thread Count: %d\n", Type4HobData->SmbiosType4Processor.ThreadCount));
-  DEBUG ((DEBUG_INFO, "     Processor Characteristics: 0x%x\n", Type4HobData->SmbiosType4Processor.ProcessorCharacteristics));
-  DEBUG ((DEBUG_INFO, "     Processor Family2: 0x%x\n", Type4HobData->SmbiosType4Processor.ProcessorFamily2));
-  DEBUG ((DEBUG_INFO, "     Core Count 2: %d\n", Type4HobData->SmbiosType4Processor.CoreCount2));
-  DEBUG ((DEBUG_INFO, "     Enabled CoreCount : %d\n", Type4HobData->SmbiosType4Processor.EnabledCoreCount2));
-  DEBUG ((DEBUG_INFO, "     Thread Count 2: %d\n", Type4HobData->SmbiosType4Processor.ThreadCount2));
-#endif
+  DEBUG ((DEBUG_VERBOSE, "     Processor Version StringID: %d\n", Type4HobData->SmbiosType4Processor.ProcessorVersion));
+  DEBUG ((DEBUG_VERBOSE, "     Voltage: 0x%x\n", Type4HobData->SmbiosType4Processor.Voltage));
+  DEBUG ((DEBUG_VERBOSE, "     External Clock: 0x%x\n", Type4HobData->SmbiosType4Processor.ExternalClock));
+  DEBUG ((DEBUG_VERBOSE, "     Max Speed: 0x%x\n", Type4HobData->SmbiosType4Processor.MaxSpeed));
+  DEBUG ((DEBUG_VERBOSE, "     Current Speed: 0x%x\n", Type4HobData->SmbiosType4Processor.CurrentSpeed));
+  DEBUG ((DEBUG_VERBOSE, "     Status: 0x%x\n", Type4HobData->SmbiosType4Processor.Status));
+  DEBUG ((DEBUG_VERBOSE, "     ProcessorUpgrade: 0x%x\n", Type4HobData->SmbiosType4Processor.ProcessorUpgrade));
+  DEBUG ((DEBUG_VERBOSE, "     L1 Cache Handle: 0x%x\n", Type4HobData->SmbiosType4Processor.L1CacheHandle));
+  DEBUG ((DEBUG_VERBOSE, "     L2 Cache Handle: 0x%x\n",Type4HobData->SmbiosType4Processor.L2CacheHandle));
+  DEBUG ((DEBUG_VERBOSE, "     L3 Cache Handle: 0x%x\n", Type4HobData->SmbiosType4Processor.L3CacheHandle));
+  DEBUG ((DEBUG_VERBOSE, "     Serial Number StringID: %d\n", Type4HobData->SmbiosType4Processor.SerialNumber));
+  DEBUG ((DEBUG_VERBOSE, "     Asset Tag StringID: %d\n", Type4HobData->SmbiosType4Processor.AssetTag));
+  DEBUG ((DEBUG_VERBOSE, "     Part Number StringID: %d\n", Type4HobData->SmbiosType4Processor.PartNumber));
+  DEBUG ((DEBUG_VERBOSE, "     Core Count: %d\n", Type4HobData->SmbiosType4Processor.CoreCount));
+  DEBUG ((DEBUG_VERBOSE, "     Enabled CoreCount: %d\n", Type4HobData->SmbiosType4Processor.EnabledCoreCount));
+  DEBUG ((DEBUG_VERBOSE, "     Thread Count: %d\n", Type4HobData->SmbiosType4Processor.ThreadCount));
+  DEBUG ((DEBUG_VERBOSE, "     Processor Characteristics: 0x%x\n", Type4HobData->SmbiosType4Processor.ProcessorCharacteristics));
+  DEBUG ((DEBUG_VERBOSE, "     Processor Family2: 0x%x\n", Type4HobData->SmbiosType4Processor.ProcessorFamily2));
+  DEBUG ((DEBUG_VERBOSE, "     Core Count 2: %d\n", Type4HobData->SmbiosType4Processor.CoreCount2));
+  DEBUG ((DEBUG_VERBOSE, "     Enabled CoreCount : %d\n", Type4HobData->SmbiosType4Processor.EnabledCoreCount2));
+  DEBUG ((DEBUG_VERBOSE, "     Thread Count 2: %d\n", Type4HobData->SmbiosType4Processor.ThreadCount2));
 
   *SmbiosHandle = Processor;
   return EFI_SUCCESS;
@@ -199,10 +193,8 @@ BuildSmbiosType44 (
   EFI_STATUS Status;
 
   DEBUG ((DEBUG_INFO, "Building Type 44 for...\n"));
-#if RISCV_SMBIOS_DEBUG_INFO
-  DEBUG ((DEBUG_INFO, "     Processor GUID: %g\n", &Type4HobData->PrcessorGuid));
-  DEBUG ((DEBUG_INFO, "     Processor UUID: %d\n", Type4HobData->ProcessorUid));
-#endif
+  DEBUG ((DEBUG_VERBOSE, "     Processor GUID: %g\n", &Type4HobData->PrcessorGuid));
+  DEBUG ((DEBUG_VERBOSE, "     Processor UUID: %d\n", Type4HobData->ProcessorUid));
 
   GuidHob = (EFI_HOB_GUID_TYPE *)GetFirstGuidHob ((EFI_GUID *)PcdGetPtr(PcdProcessorSpecificDataGuidHobGuid));
   if (GuidHob == NULL) {
@@ -223,10 +215,8 @@ BuildSmbiosType44 (
       continue;
     }
 
-#if RISCV_SMBIOS_DEBUG_INFO
-    DEBUG ((DEBUG_INFO, "================================\n"));
-    DEBUG ((DEBUG_INFO, "Core GUID: %g\n", &ProcessorSpecificData->CoreGuid));
-#endif
+    DEBUG ((DEBUG_VERBOSE, "================================\n"));
+    DEBUG ((DEBUG_VERBOSE, "Core GUID: %g\n", &ProcessorSpecificData->CoreGuid));
 
     Type44Ptr = AllocateZeroPool(sizeof(SMBIOS_TABLE_TYPE44) + sizeof(SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA) + 2); // Two ending zero.
     if (Type44Ptr == NULL) {
@@ -242,22 +232,20 @@ BuildSmbiosType44 (
                                                           ProcessorSpecificBlockArchTypeRiscVRV32;
     CopyMem ((VOID *)(Type44Ptr + 1), (VOID *)&ProcessorSpecificData->ProcessorSpecificData, sizeof (SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA));
 
-#if RISCV_SMBIOS_DEBUG_INFO
-    DEBUG ((DEBUG_INFO, "Core type: %d\n", Type44Ptr->ProcessorSpecificBlock.ProcessorArchType));
-    DEBUG ((DEBUG_INFO, "     HartId = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->HartId.Value64_L));
-    DEBUG ((DEBUG_INFO, "     Is Boot Hart? = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->BootHartId));
-    DEBUG ((DEBUG_INFO, "     PrivilegeModeSupported = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->PrivilegeModeSupported));
-    DEBUG ((DEBUG_INFO, "     MModeExcepDelegation = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MModeExcepDelegation.Value64_L));
-    DEBUG ((DEBUG_INFO, "     MModeInterruptDelegation = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MModeInterruptDelegation.Value64_L));
-    DEBUG ((DEBUG_INFO, "     HartXlen = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->HartXlen));
-    DEBUG ((DEBUG_INFO, "     MachineModeXlen = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MachineModeXlen));
-    DEBUG ((DEBUG_INFO, "     SupervisorModeXlen = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->SupervisorModeXlen));
-    DEBUG ((DEBUG_INFO, "     UserModeXlen = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->UserModeXlen));
-    DEBUG ((DEBUG_INFO, "     InstSetSupported = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->InstSetSupported));
-    DEBUG ((DEBUG_INFO, "     MachineVendorId = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MachineVendorId.Value64_L));
-    DEBUG ((DEBUG_INFO, "     MachineArchId = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MachineArchId.Value64_L));
-    DEBUG ((DEBUG_INFO, "     MachineImplId = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MachineImplId.Value64_L));
-#endif
+    DEBUG ((DEBUG_VERBOSE, "Core type: %d\n", Type44Ptr->ProcessorSpecificBlock.ProcessorArchType));
+    DEBUG ((DEBUG_VERBOSE, "     HartId = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->HartId.Value64_L));
+    DEBUG ((DEBUG_VERBOSE, "     Is Boot Hart? = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->BootHartId));
+    DEBUG ((DEBUG_VERBOSE, "     PrivilegeModeSupported = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->PrivilegeModeSupported));
+    DEBUG ((DEBUG_VERBOSE, "     MModeExcepDelegation = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MModeExcepDelegation.Value64_L));
+    DEBUG ((DEBUG_VERBOSE, "     MModeInterruptDelegation = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MModeInterruptDelegation.Value64_L));
+    DEBUG ((DEBUG_VERBOSE, "     HartXlen = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->HartXlen));
+    DEBUG ((DEBUG_VERBOSE, "     MachineModeXlen = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MachineModeXlen));
+    DEBUG ((DEBUG_VERBOSE, "     SupervisorModeXlen = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->SupervisorModeXlen));
+    DEBUG ((DEBUG_VERBOSE, "     UserModeXlen = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->UserModeXlen));
+    DEBUG ((DEBUG_VERBOSE, "     InstSetSupported = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->InstSetSupported));
+    DEBUG ((DEBUG_VERBOSE, "     MachineVendorId = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MachineVendorId.Value64_L));
+    DEBUG ((DEBUG_VERBOSE, "     MachineArchId = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MachineArchId.Value64_L));
+    DEBUG ((DEBUG_VERBOSE, "     MachineImplId = 0x%x\n", ((SMBIOS_RISC_V_PROCESSOR_SPECIFIC_DATA *)(Type44Ptr + 1))->MachineImplId.Value64_L));
 
     //
     // Add to SMBIOS table.
