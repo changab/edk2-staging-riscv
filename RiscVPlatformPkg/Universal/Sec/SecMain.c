@@ -494,12 +494,12 @@ VOID EFIAPI SecCoreStartUpWithStack(UINTN hartid, struct sbi_scratch *scratch)
   // Setup EFI_RISCV_FIRMWARE_CONTEXT_HART_SPECIFIC for each hart.
   //
   HartFirmwareContext = (EFI_RISCV_FIRMWARE_CONTEXT_HART_SPECIFIC *)((UINT8 *)scratch - FIRMWARE_CONTEXT_HART_SPECIFIC_SIZE);
-  HartFirmwareContext->IsaExtensionSupported = RiscVReadMisa ();
-  HartFirmwareContext->MachineVendorId.Value64_L = RiscVReadMVendorId ();
+  HartFirmwareContext->IsaExtensionSupported = RiscVReadMachineIsa ();
+  HartFirmwareContext->MachineVendorId.Value64_L = RiscVReadMachineVendorId ();
   HartFirmwareContext->MachineVendorId.Value64_H = 0;
-  HartFirmwareContext->MachineArchId.Value64_L = RiscVReadMArchId ();
+  HartFirmwareContext->MachineArchId.Value64_L = RiscVReadMachineArchitectureId ();
   HartFirmwareContext->MachineArchId.Value64_H = 0;
-  HartFirmwareContext->MachineImplId.Value64_L = RiscVReadMImplId ();
+  HartFirmwareContext->MachineImplId.Value64_L = RiscVReadMachineImplementId ();
   HartFirmwareContext->MachineImplId.Value64_H = 0;
 
 #if DEBUG_MSG_HART_INFO

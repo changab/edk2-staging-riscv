@@ -20,8 +20,8 @@
 
 .text
 .align 3
-.global ASM_PFX(_ModuleEntryPoint)
-ASM_PFX(_ModuleEntryPoint):
+
+ASM_FUNC (_ModuleEntryPoint)
   /*
    * Jump to warm-boot if this is not the selected core booting,
    */
