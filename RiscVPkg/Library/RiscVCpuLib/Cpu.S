@@ -15,23 +15,11 @@
 .text
 .align 3
 
-.global ASM_PFX(RiscVSetScratch)
-.global ASM_PFX(RiscVGetScratch)
-.global ASM_PFX(RiscVGetMachineTrapCause)
-.global ASM_PFX(RiscVReadMachineIE)
-.global ASM_PFX(RiscVReadMachineIP)
-.global ASM_PFX(RiscVReadMachineStatus)
-.global ASM_PFX(RiscVWriteMachineStatus)
-.global ASM_PFX(RiscVReadMachineTvec)
-.global ASM_PFX(RiscVReadMisa)
-.global ASM_PFX(RiscVReadMVendorId)
-.global ASM_PFX(RiscVReadMArchId)
-.global ASM_PFX(RiscVReadMImplId)
 //
 // Set machine mode scratch.
 // @param a0 : Pointer to RISCV_MACHINE_MODE_CONTEXT.
 //
-ASM_PFX (RiscVSetScratch):
+ASM_FUNC (RiscVSetMachineScratch)
     csrrw a1, RISCV_CSR_MACHINE_MSCRATCH, a0
     ret
 
@@ -39,77 +27,77 @@ ASM_PFX (RiscVSetScratch):
 // Get machine mode scratch.
 // @retval a0 : Pointer to RISCV_MACHINE_MODE_CONTEXT.
 //
-ASM_PFX (RiscVGetScratch):
+ASM_FUNC (RiscVGetMachineScratch)
     csrrs a0, RISCV_CSR_MACHINE_MSCRATCH, 0
     ret
 
 //
 // Get machine trap cause CSR.
 //
-ASM_PFX (RiscVGetMachineTrapCause):
+ASM_FUNC (RiscVGetMachineTrapCause)
     csrrs a0, RISCV_CSR_MACHINE_MCAUSE, 0
     ret
 
 //
 // Get machine interrupt enable
 //
-ASM_PFX (RiscVReadMachineIE):
+ASM_FUNC (RiscVReadMachineInterruptEnable)
     csrr a0, RISCV_CSR_MACHINE_MIE
     ret
 
 //
 // Get machine interrupt pending
 //
-ASM_PFX (RiscVReadMachineIP):
+ASM_FUNC (RiscVReadMachineInterruptPending)
     csrr a0, RISCV_CSR_MACHINE_MIP
     ret
 
 //
 // Get machine status
 //
-ASM_PFX(RiscVReadMachineStatus):
+ASM_FUNC (RiscVReadMachineStatus)
     csrr a0, RISCV_CSR_MACHINE_MSTATUS
     ret
 
 //
 // Set machine status
 //
-ASM_PFX(RiscVWriteMachineStatus):
+ASM_FUNC (RiscVWriteMachineStatus)
     csrw RISCV_CSR_MACHINE_MSTATUS, a0
     ret
 
 //
 // Get machine trap vector
 //
-ASM_PFX(RiscVReadMachineTvec):
+ASM_FUNC (RiscVReadMachineTrapVector)
     csrr a0, RISCV_CSR_MACHINE_MTVEC
     ret
 
 //
 // Read machine ISA
 //
-ASM_PFX(RiscVReadMisa):
+ASM_FUNC (RiscVReadMachineIsa)
     csrr a0, RISCV_CSR_MACHINE_MISA
     ret
 
 //
 // Read machine vendor ID
 //
-ASM_PFX(RiscVReadMVendorId):
+ASM_FUNC (RiscVReadMachineVendorId)
     csrr a0, RISCV_CSR_MACHINE_MVENDORID
     ret
 
 //
 // Read machine architecture ID
 //
-ASM_PFX(RiscVReadMArchId):
+ASM_FUNC (RiscVReadMachineArchitectureId)
     csrr a0, RISCV_CSR_MACHINE_MARCHID
     ret
 
 //
 // Read machine implementation ID
 //
-ASM_PFX(RiscVReadMImplId):
+ASM_FUNC (RiscVReadMachineImplementId)
     csrr a0, RISCV_CSR_MACHINE_MIMPID
     ret
 

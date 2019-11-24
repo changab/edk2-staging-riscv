@@ -21,13 +21,13 @@ VOID
   );
 
 VOID
-RiscVSetScratch (RISCV_MACHINE_MODE_CONTEXT *RiscvContext);
+RiscVSetMachineScratch (RISCV_MACHINE_MODE_CONTEXT *RiscvContext);
 
 UINT32
-RiscVGetScratch (VOID);
+RiscVGetMachineScratch (VOID);
 
 UINT32
-RiscVGetTrapCause (VOID);
+RiscVGetMachineTrapCause (VOID);
 
 UINT64
 RiscVReadMachineTimer (VOID);
@@ -39,10 +39,10 @@ UINT64
 RiscVReadMachineTimerCmp(VOID);
 
 UINT64
-RiscVReadMachineIE(VOID);
+RiscVReadMachineInterruptEnable(VOID);
 
 UINT64
-RiscVReadMachineIP(VOID);
+RiscVReadMachineInterruptPending(VOID);
 
 UINT64
 RiscVReadMachineStatus(VOID);
@@ -51,18 +51,18 @@ VOID
 RiscVWriteMachineStatus(UINT64);
 
 UINT64
-RiscVReadMachineTvec(VOID);
+RiscVReadMachineTrapVector(VOID);
 
 UINT64
-RiscVReadMisa (VOID);
+RiscVReadMachineIsa (VOID);
 
 UINT64
-RiscVReadMVendorId (VOID);
+RiscVReadMachineVendorId (VOID);
 
 UINT64
-RiscVReadMArchId (VOID);
+RiscVReadMachineArchitectureId (VOID);
 
 UINT64
-RiscVReadMImplId (VOID);
+RiscVReadMachineImplementId (VOID);
 
 #endif

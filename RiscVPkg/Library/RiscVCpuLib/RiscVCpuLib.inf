@@ -27,8 +27,8 @@
   Cpu.S
 
 [Packages]
-  MdePkg/MdePkg.dec
   MdeModulePkg/MdeModulePkg.dec
+  MdePkg/MdePkg.dec
   RiscVPkg/RiscVPkg.dec
 
 
