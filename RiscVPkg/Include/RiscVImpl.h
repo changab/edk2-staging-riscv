@@ -12,6 +12,15 @@
 
 #include <IndustryStandard/RiscV.h>
 
+#define _ASM_FUNC(Name, Section)    \
+  .global   Name                  ; \
+  .section  #Section, "ax"        ; \
+  .type     Name, %function       ; \
+  .p2align  2                     ; \
+  Name:
+
+#define ASM_FUNC(Name) _ASM_FUNC(ASM_PFX(Name), .text. ## Name)
+
 //
 // Structure for 128-bit value
 //
