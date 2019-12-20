@@ -28,6 +28,16 @@ Refer to Platform/SiFive/U5Series/Readme.md on edk2-platform repository.
 RiscVPkg       - RISC-V processor package. This package provides RISC-V
                  processor related protocols/libraries accroding to UEFI
                  specification and edk2 implementations.
+               - Currently we have two sbi wrapper of header files under
+                 RiscVPkg/Include/sbi,
+                 One is sbi_bits.h in whcih we fix the duplicate definitons
+                 of MAX and MIN.
+                 Another one is sbi_types.h which is the binding file for
+                 leverage opensbi on edk2 firmware framework.
+                 We will work with opensbi open source community to fix the
+                 issues we met on edk2 with opensbi in order to remove these
+                 two files from edk2 RISC-V port.
+
 RiscVPlatformPkg  - RISC-V platform package. This package provides RISC-V
                     platform common modules, libraries, PCDs and definitoins.
 ```
