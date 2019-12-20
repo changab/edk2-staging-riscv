@@ -6,13 +6,13 @@
   SPDX-License-Identifier: BSD-2-Clause-Patent
 **/
 
+#include <IndustryStandard/RiscVOpensbi.h>
 #include <PiPei.h>
 #include <Library/DebugLib.h>
 #include <Library/RiscVCpuLib.h>
 #include <Library/PeiServicesTablePointerLib.h>
 #include <sbi/sbi_scratch.h>
 #include <sbi/sbi_platform.h>
-#include <sbi/SbiFirmwareContext.h>
 
 /**
   Caches a pointer PEI Services Table.
