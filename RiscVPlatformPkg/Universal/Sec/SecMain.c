@@ -7,17 +7,16 @@
 
 **/
 
-#include "SecMain.h"
+#include <SecMain.h>
+#include <IndustryStandard/RiscVOpensbi.h>
 #include <Library/DebugPrintErrorLevelLib.h>
 #include <Library/SerialPortLib.h>
 #include <Library/PrintLib.h>
-#include <sbi/sbi.h>          // Reference to header file in Include/sbi
 #include <sbi/sbi_console.h>  // Reference to header file in opensbi
 #include <sbi/sbi_hart.h>     // Reference to header file in opensbi
 #include <sbi/sbi_scratch.h>  // Reference to header file in opensbi
 #include <sbi/sbi_platform.h> // Reference to header file in opensbi
 #include <sbi/sbi_init.h>     // Reference to header file in opensbi
-#include <sbi/SbiFirmwareContext.h> // Reference to header file in Include/sbi
 
 #define DEBUG_MSG_HART_INFO 0
 

@@ -7,6 +7,7 @@
  *
  */
 
+#include <IndustryStandard/RiscVOpensbi.h>
 #include <Base.h>
 #include <RiscVImpl.h>
 #include <sbi/riscv_asm.h>
@@ -16,7 +17,6 @@
 #include <sbi/sbi_trap.h>
 
 #include <SecMain.h>
-#include <sbi/SbiFirmwareContext.h>
 
 .text
 .align 3
