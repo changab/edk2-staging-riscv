@@ -15,14 +15,13 @@
 //
 // The Library classes this module consumes
 //
+#include <IndustryStandard/RiscVOpensbi.h>
 #include <Library/BaseMemoryLib.h>
 #include <Library/DebugLib.h>
 #include <Library/PeiServicesLib.h>
 #include <ProcessorSpecificHobData.h>
 #include <RiscVImpl.h>
-#include <sbi/sbi.h>
 #include <sbi/sbi_hart.h>
-#include <sbi/SbiFirmwareContext.h>
 
 /**
   Build up common firmware context processor-specific information

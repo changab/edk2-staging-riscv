@@ -9,8 +9,8 @@
 #ifndef FIRMWARE_CONTEXT_PROCESSOR_SPECIFIC_LIB_H
 #define FIRMWARE_CONTEXT_PROCESSOR_SPECIFIC_LIB_H
 
+#include <IndustryStandard/RiscVOpensbi.h>
 #include <PiPei.h>
-#include <sbi/SbiFirmwareContext.h>
 #include <ProcessorSpecificHobData.h>
 
 /**
