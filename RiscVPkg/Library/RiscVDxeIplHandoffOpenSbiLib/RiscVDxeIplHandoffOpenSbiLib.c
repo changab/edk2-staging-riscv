@@ -6,11 +6,11 @@
   SPDX-License-Identifier: BSD-2-Clause-Patent
 **/
 
+#include <IndustryStandard/RiscVOpensbi.h>
 #include <PiPei.h>
 #include <Library/BaseLib.h>
 #include <Library/DebugLib.h>
 #include <sbi/riscv_encoding.h>
-#include <sbi/sbi.h>
 #include <sbi/sbi_hart.h>
 #include <sbi/sbi_init.h>
 #include <sbi/sbi_scratch.h>
