@@ -1,0 +1,52 @@
+## @file
+# Produces a PPI for other PEIMs to call OpenSBI
+#
+# Copyright (c) 2020, Hewlett Packard Development LP. All rights reserverd.<BR>
+#
+# SPDX-License-Identifier: BSD-2-Clause-Patent
+#
+##
+
+[Defines]
+  INF_VERSION                    = 0x00010005
+  BASE_NAME                      = RiscVOpenSbiPei
+  FILE_GUID                      = 2E3DCA83-BC01-4F3D-9380-3EE99CD5BF01
+  MODULE_TYPE                    = PEIM
+  VERSION_STRING                 = 1.0
+
+  ENTRY_POINT                    = OpenSbiPeimEntry
+
+#
+# The following information is for reference only and not required by the build tools.
+#
+#  VALID_ARCHITECTURES           = RISCV64
+#
+
+[Sources]
+  RiscVOpenSbiPeim.c
+
+[Packages]
+  MdeModulePkg/MdeModulePkg.dec
+  MdePkg/MdePkg.dec
+  RiscVPkg/RiscVPkg.dec
+
+[LibraryClasses]
+  # TODO: Remove once we are sure that we do not need them
+  #BaseLib
+  #BaseMemoryLib
+  #DebugLib
+  RiscVOpensbiLib
+  PeimEntryPoint
+  PeiServicesLib
+
+[Ppis]
+  gPeiOpenSbiBasePpiGuid                        ## PRODUCES
+  gPeiOpenSbiLegacyPpiGuid                      ## PRODUCES
+  gPeiOpenSbiHsmPpiGuid                         ## PRODUCES
+  gPeiOpenSbiVendorPpiGuid                      ## PRODUCES
+  gPeiOpenSbiLibraryPpiGuid                     ## PRODUCES
+
+# Should be scheduled as one of the first PEIMs using the A Priori file
+# But actually, if all dependent PEIMs specify their Depex correctly Apriori file shouldn not be necessary.
+[Depex]
+  TRUE

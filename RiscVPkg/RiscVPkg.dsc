@@ -88,5 +88,6 @@
 
 [Components]
   RiscVPkg/Universal/CpuDxe/CpuDxe.inf
+  RiscVPkg/Universal/RiscVOpenSbi/Pei/RiscVOpenSbiPeim.inf
   RiscVPkg/Universal/SmbiosDxe/RiscVSmbiosDxe.inf
 
