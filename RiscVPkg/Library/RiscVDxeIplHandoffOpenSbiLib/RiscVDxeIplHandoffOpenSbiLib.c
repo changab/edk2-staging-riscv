@@ -18,22 +18,21 @@
 #include <Library/RiscVPlatformDxeIpl.h>
 
 /**
-   RISC-V platform DXE IPL to DXE OpenSBI mdoe switch handler.
+   RISC-V platform DXE IPL to DXE OpenSBI mode switch handler.
    This function is executed in RISC-V Supervisor mode.
+   It is called by sbi_init()
 
    This function performs a CPU architecture specific operations to execute
    the entry point of DxeCore with the parameters of HobList.
    It also installs EFI_END_OF_PEI_PPI to signal the end of PEI phase.
 
-   @param BaseOfStack        Base address of stack
-   @param TopOfStack         Top address of stack
-   @param DxeCoreEntryPoint  The entry point of DxeCore.
-   @param HobList            The start of HobList passed to DxeCore.
+   @param HartId            Current hart ID
+   @param ThisSwitchContext Context of switch, as it was passed to sbi_init().
 
 **/
 VOID
 RiscVDxeIplHandoffOpenSbiHandler (
-  IN UINTN HardId,
+  IN UINTN HartId,
   IN OPENSBI_SWITCH_MODE_CONTEXT *ThisSwitchContext
   )
 {
@@ -47,7 +46,7 @@ RiscVDxeIplHandoffOpenSbiHandler (
     );
 
   //
-  // Shold never came back.
+  // SwitchStack never returns
   //
   UNREACHABLE();
 }
