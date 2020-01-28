@@ -22,6 +22,10 @@
   opensbi/lib/sbi/riscv_locks.c
   opensbi/lib/sbi/sbi_console.c
   opensbi/lib/sbi/sbi_ecall.c
+  opensbi/lib/sbi/sbi_ecall_vendor.c
+  opensbi/lib/sbi/sbi_ecall_replace.c
+  opensbi/lib/sbi/sbi_ecall_legacy.c
+  opensbi/lib/sbi/sbi_ecall_base.c
   opensbi/lib/sbi/sbi_emulate_csr.c
   opensbi/lib/sbi/sbi_fifo.c
   opensbi/lib/sbi/sbi_hart.c
