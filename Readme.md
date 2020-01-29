@@ -67,6 +67,7 @@ contains the following components that are covered by additional licenses:
 * [OvmfPkg](OvmfPkg/License.txt)
 * [CryptoPkg/Library/OpensslLib/openssl](https://github.com/openssl/openssl/blob/50eaac9f3337667259de725451f201e784599687/LICENSE)
 * [ArmPkg/Library/ArmSoftFloatLib/berkeley-softfloat-3](https://github.com/ucb-bar/berkeley-softfloat-3/blob/b64af41c3276f97f0e181920400ee056b9c88037/COPYING.txt)
+* [RiscVPkg/Library/RiscVOpensbiLib/opensbi](https://github.com/riscv/opensbi/blob/master/COPYING.BSD)
 
 The EDK II Project is composed of packages.  The maintainers for each package
 are listed in [Maintainers.txt](Maintainers.txt).
