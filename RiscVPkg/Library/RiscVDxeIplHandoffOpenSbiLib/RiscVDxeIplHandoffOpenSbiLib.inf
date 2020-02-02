@@ -16,6 +16,8 @@
   LIBRARY_CLASS                  = RiscVPlatformDxeIplLib|PEIM PEI_CORE
 
 #
+# The following information is for reference only and not required by the build tools.
+#
 #  VALID_ARCHITECTURES           = RISCV64
 #
 
@@ -29,6 +31,11 @@
 
 [LibraryClasses]
   DebugLib
+  PeiServicesLib
   RiscVCpuLib
-  RiscVOpensbiLib
 
+[Ppis]
+  gPeiOpenSbiLibraryPpiGuid                             ## CONSUMES
+
+[Depex]
+  gPeiOpenSbiLibraryPpiGuid
