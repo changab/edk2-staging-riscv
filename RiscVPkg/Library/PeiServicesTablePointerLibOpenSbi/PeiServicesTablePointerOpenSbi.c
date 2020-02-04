@@ -8,8 +8,10 @@
 
 #include <IndustryStandard/RiscVOpensbi.h>
 #include <PiPei.h>
+#include <Ppi/RiscVOpenSbiPeim.h>
 #include <Library/DebugLib.h>
 #include <Library/RiscVCpuLib.h>
+#include <Library/PeiServicesLib.h>
 #include <Library/PeiServicesTablePointerLib.h>
 #include <sbi/sbi_scratch.h>
 #include <sbi/sbi_platform.h>
@@ -31,10 +33,39 @@ SetPeiServicesTablePointer (
   IN CONST EFI_PEI_SERVICES ** PeiServicesTablePointer
   )
 {
-  struct sbi_platform *ThisSbiPlatform;
+  const struct sbi_platform          *ThisSbiPlatform;
   EFI_RISCV_OPENSBI_FIRMWARE_CONTEXT *FirmwareContext;
+  // Question: Can I call the OpenSBI PPI in this PEIM? Or is it too early?
+  //EFI_STATUS                          Status;
+  //PEI_RISCV_OPENSBI_LIBRARY_PPI      *SbiLib;
+  //struct sbi_scratch                 *ThisScratch;
 
+  //DEBUG ((DEBUG_INFO, "\nCalling PeiServicesLocatePpi\n"));
+  //Status = PeiServicesLocatePpi (
+  //           &gPeiOpenSbiLibraryPpiGuid,
+  //           0,
+  //           NULL,
+  //           (VOID **)&SbiLib
+  //           );
+  //ASSERT_EFI_ERROR(Status);
+
+  //DEBUG ((DEBUG_INFO, "\nCalling PPI: SbiLib->OpenSbiLibraryScratchThisHartPtr\n"));
+  //SbiLib->OpenSbiLibraryScratchThisHartPtr (
+  //          // TODO: Should I declare this parameter in the PPI functions as const?
+  //          (EFI_PEI_SERVICES **) PeiServicesTablePointer,
+  //          SbiLib,
+  //          &ThisScratch
+  //          );
+
+  //DEBUG ((DEBUG_INFO, "\nCalling PPI: SbiLib->OpenSbiLibraryPlatformPtr\n"));
+  //SbiLib->OpenSbiLibraryPlatformPtr (
+  //          (EFI_PEI_SERVICES **) PeiServicesTablePointer,
+  //          SbiLib,
+  //          ThisScratch,
+  //          &ThisSbiPlatform
+  //          );
   ThisSbiPlatform = (struct sbi_platform *)sbi_platform_ptr(sbi_scratch_thishart_ptr());
+
   FirmwareContext = (EFI_RISCV_OPENSBI_FIRMWARE_CONTEXT *)ThisSbiPlatform->firmware_context;
   FirmwareContext->PeiServiceTable = (VOID *)(UINTN)PeiServicesTablePointer;
 
@@ -65,6 +96,9 @@ GetPeiServicesTablePointer (
   struct sbi_platform *ThisSbiPlatform;
   EFI_RISCV_OPENSBI_FIRMWARE_CONTEXT *FirmwareContext;
 
+  // Question: Can I call the OpenSBI PPI in this PEIM?
+  //           How do I get access to the PeiServicesTablePointer here without the OpenSBI PPI?
+  //           The two functions which are used, are implemented in a header in OpenSBI. We could do that, too.
   ThisSbiPlatform = (struct sbi_platform *)sbi_platform_ptr(sbi_scratch_thishart_ptr());
   FirmwareContext = (EFI_RISCV_OPENSBI_FIRMWARE_CONTEXT *)ThisSbiPlatform->firmware_context;
   return (CONST EFI_PEI_SERVICES **)FirmwareContext->PeiServiceTable;

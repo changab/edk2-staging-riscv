@@ -36,3 +36,9 @@
   DebugLib
   RiscVCpuLib
   RiscVOpensbiLib
+
+#[Ppis]
+#  gPeiOpenSbiLibraryPpiGuid                          ## CONSUMES
+#
+#[Depex]
+#  gPeiOpenSbiLibraryPpiGuid
