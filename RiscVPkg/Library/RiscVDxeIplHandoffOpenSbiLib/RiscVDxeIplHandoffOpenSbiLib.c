@@ -1,11 +1,12 @@
 /** @file
   RISC-V DXE IPL to DXE core handoff platform library using OpenSBI
 
-  Copyright (c) 2019, Hewlett Packard Enterprise Development LP. All rights reserved.<BR>
+  Copyright (c) 2019 - 2020, Hewlett Packard Enterprise Development LP. All rights reserved.<BR>
 
   SPDX-License-Identifier: BSD-2-Clause-Patent
 **/
 
+#include <Core/DxeIplPeim/DxeIpl.h>
 #include <IndustryStandard/RiscVOpensbi.h>
 #include <PiPei.h>
 #include <Library/BaseLib.h>
@@ -73,8 +74,15 @@ RiscVPlatformHandOffToDxeCore (
   IN EFI_PEI_HOB_POINTERS HobList
   )
 {
+  EFI_STATUS Status;
   struct sbi_scratch *ThisScratch;
   OPENSBI_SWITCH_MODE_CONTEXT OpenSbiSwitchModeContext;
+
+  //
+  // End of PEI phase signal
+  //
+  Status = PeiServicesInstallPpi (&gEndOfPeiSignalPpi);
+  ASSERT_EFI_ERROR (Status);
 
   DEBUG ((DEBUG_INFO, "DXE IPL to DXE Core using OpenSBI\n"));
   //
