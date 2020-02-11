@@ -497,7 +497,7 @@ CreateDeviceManagerForm(
   EFI_STRING_ID               TokenHelp;
   EFI_HII_HANDLE              *HiiHandles;
   EFI_HII_HANDLE              HiiHandle;
-  EFI_GUID                    FormSetGuid;
+  EFI_GUID                   *FormSetGuid;
   VOID                        *StartOpCodeHandle;
   VOID                        *EndOpCodeHandle;
   EFI_IFR_GUID_LABEL          *StartLabel;
@@ -619,7 +619,8 @@ CreateDeviceManagerForm(
         TokenHelp = HiiSetString (HiiHandle, 0, String, NULL);
         FreePool (String);
 
-        FormSetGuid = ((EFI_IFR_FORM_SET *)Ptr)->Guid;
+        FormSetGuid = AllocatePool (sizeof (EFI_GUID));
+        CopyMem (FormSetGuid, &((EFI_IFR_FORM_SET *) Ptr)->Guid, sizeof (EFI_GUID));
 
         //
         // Network device process
@@ -673,7 +674,7 @@ CreateDeviceManagerForm(
               0,
               (EFI_QUESTION_ID) (Index + DEVICE_KEY_OFFSET),
               0,
-              &FormSetGuid,
+              FormSetGuid,
               DevicePathId
             );
           }
@@ -696,11 +697,12 @@ CreateDeviceManagerForm(
               0,
               (EFI_QUESTION_ID) (Index + DEVICE_KEY_OFFSET),
               0,
-              &FormSetGuid,
+              FormSetGuid,
               DevicePathId
             );
           }
         }
+        FreePool (FormSetGuid);
         break;
       }
 
