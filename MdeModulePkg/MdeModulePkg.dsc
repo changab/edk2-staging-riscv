@@ -184,6 +184,11 @@
   #
   NULL|MdePkg/Library/BaseStackCheckLib/BaseStackCheckLib.inf
 
+[LibraryClasses.RISCV64]
+  RiscVCpuLib|RiscVPkg/Library/RiscVCpuLib/RiscVCpuLib.inf
+  RiscVOpensbiLib|RiscVPkg/Library/RiscVOpensbiLib/RiscVOpensbiLib.inf
+  RiscVPlatformDxeIplLib|RiscVPkg/Library/RiscVDxeIplHandoffOpenSbiLib/RiscVDxeIplHandoffOpenSbiLib.inf
+
 [LibraryClasses.EBC]
   LockBoxLib|MdeModulePkg/Library/LockBoxNullLib/LockBoxNullLib.inf
 

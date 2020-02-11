@@ -83,6 +83,7 @@
   ArmMmuLib
 
 [LibraryClasses.RISCV64]
+  RiscVOpensbiLib
   RiscVPlatformDxeIplLib
 
 [Ppis]
