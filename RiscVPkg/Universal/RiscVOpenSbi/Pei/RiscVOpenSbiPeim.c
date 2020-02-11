@@ -8,7 +8,6 @@ SPDX-License-Identifier: BSD-2-Clause-Patent
 **/
 
 #include <Library/PeiServicesLib.h>
-#include <IndustryStandard/RiscVOpensbi.h>
 #include <Ppi/RiscVOpenSbiPeim.h>
 #include <sbi/riscv_asm.h>
 #include <sbi/sbi_hart.h>
@@ -114,12 +113,7 @@ PEI_RISCV_OPENSBI_BASE_PPI mOpenSbiBasePpi = {
   PeiOpenSbiGetMimpId
 };
 
-/**
-  Clear pending timer interrupt bit and set clock for next event after StimeValue time.
-
-  To clear the timer without scheduling a timer event, set StimeValue to a practically infinite value.
-**/
-EFI_STATUS
+VOID
 EFIAPI
 PeiOpenSbiSetTimer (
   IN EFI_PEI_SERVICES             **PeiServices,
@@ -128,15 +122,9 @@ PeiOpenSbiSetTimer (
   )
 {
   sbi_set_timer(StimeValue);
-  return EFI_SUCCESS;
 }
 
-/**
-  Write char to debug console
-  Will block if characters are pending to be transmitted or the receiving terminal is not ready to receive a byte.
-  If the console, does not exist, nothing happens.
-**/
-EFI_STATUS
+VOID
 EFIAPI
 PeiOpenSbiConsolePutChar (
   IN EFI_PEI_SERVICES             **PeiServices,
@@ -145,18 +133,8 @@ PeiOpenSbiConsolePutChar (
   )
 {
   sbi_console_putchar(ConsoleChar);
-  return EFI_SUCCESS;
 }
 
-/**
-  Read single byte from debug console.
-
-  Doesn't block
-
-  Return values
-  EFI_SUCCESS
-  EFI_LOAD_ERROR -> Doesn't write to ConsoleChar
-**/
 EFI_STATUS
 EFIAPI
 PeiOpenSbiConsoleGetChar (
@@ -174,10 +152,7 @@ PeiOpenSbiConsoleGetChar (
   return EFI_SUCCESS;
 }
 
-/**
-  Clear all pending IPIs for the invoking hart.
-**/
-EFI_STATUS
+VOID
 EFIAPI
 PeiOpenSbiClearIpi (
   IN  EFI_PEI_SERVICES             **PeiServices,
@@ -185,20 +160,9 @@ PeiOpenSbiClearIpi (
   )
 {
   sbi_clear_ipi();
-  return EFI_SUCCESS;
 }
 
-/**
-  Send an inter-processor interrupt to all the harts defined in HartMask.
-  Interprocessor interrupts manifest at the receiving harts as Supervisor
-  Software Interrupts.
-
-  HartMask is a virtual address that points to a bit-vector of harts. The bit
-  vector is represented as a sequence of unsigned longs whose length equals the
-  number of harts in the system divided by the number of bits in an unsigned
-  long, rounded up to the next integer.
-**/
-EFI_STATUS
+VOID
 EFIAPI
 PeiOpenSbiSendIpi (
   IN  EFI_PEI_SERVICES             **PeiServices,
@@ -207,18 +171,9 @@ PeiOpenSbiSendIpi (
   )
 {
   sbi_send_ipi(HartMask);
-  return EFI_SUCCESS;
 }
 
-/**
-  Execute FENCE.I instruction on remote hart.
-
-  HartMask is a virtual address that points to a bit-vector of harts. The bit
-  vector is represented as a sequence of unsigned longs whose length equals the
-  number of harts in the system divided by the number of bits in an unsigned
-  long, rounded up to the next integer.
-**/
-EFI_STATUS
+VOID
 EFIAPI
 PeiOpenSbiRemoteFenceI (
   IN  EFI_PEI_SERVICES             **PeiServices,
@@ -227,13 +182,9 @@ PeiOpenSbiRemoteFenceI (
   )
 {
   sbi_remote_fence_i(HartMask);
-  return EFI_SUCCESS;
 }
 
-/**
-  Execute one or more SFENCE.VMA instructions on remote hart, covering the range of virtual addresses between Start and Size.
-**/
-EFI_STATUS
+VOID
 EFIAPI
 PeiOpenSbiRemoteSfenceVma (
   IN  EFI_PEI_SERVICES             **PeiServices,
@@ -244,13 +195,9 @@ PeiOpenSbiRemoteSfenceVma (
   )
 {
   sbi_remote_sfence_vma(HartMask, Start, Size);
-  return EFI_SUCCESS;
 }
 
-/**
-  Same as PeiOpenSbiRemoteSfenceVma but only for the given Asid.
-**/
-EFI_STATUS
+VOID
 EFIAPI
 PeiOpenSbiRemoteSfenceVmaAsid (
   IN  EFI_PEI_SERVICES             **PeiServices,
@@ -262,12 +209,8 @@ PeiOpenSbiRemoteSfenceVmaAsid (
   )
 {
   sbi_remote_sfence_vma_asid(HartMask, Start, Size, Asid);
-  return EFI_SUCCESS;
 }
 
-/**
-  Shuts down all harts. Does not return.
-**/
 VOID
 EFIAPI
 PeiOpenSbiShutdown (

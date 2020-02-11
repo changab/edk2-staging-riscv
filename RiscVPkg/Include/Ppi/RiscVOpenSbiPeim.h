@@ -26,12 +26,25 @@ SPDX-License-Identifier: BSD-2-Clause-Patent
 ///
 typedef struct _PEI_RISCV_OPENSBI_BASE_PPI PEI_RISCV_OPENSBI_BASE_PPI;
 
-///
-/// SpecVersion:
-/// The minor number of the SBI specification is encoded in the low 24 bits,
-/// with the major number encoded in the next 7 bits.  Bit 32 must be 0 and is
-/// reserved for future expansion.
-///
+/**
+  Get the implemented SBI specification version
+
+  The minor number of the SBI specification is encoded in the low 24 bits,
+  with the major number encoded in the next 7 bits.  Bit 32 must be 0 and is
+  reserved for future expansion.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[out] SpecVersion          The Version of the SBI specification.
+  @retval EFI_SUCCESS              The operation succeeds.
+  @retval EFI_UNSUPPORTED          The operation is unsupported.
+  @retval EFI_INVALID_PARAMETER    A parameter is invalid.
+  @retval EFI_ACCESS_DENIED        Access was denied.
+  @retval EFI_LOAD_EERROR          The given address is invalid.
+  @retval EFI_ALREADY_STARTED      The feature is already available.
+  @retval other                    Some error occured.
+  // TODO: Can it fail?
+**/
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_GET_SPEC_VERSION)(
@@ -40,6 +53,18 @@ EFI_STATUS
   OUT UINTN                       *SpecVersion
   );
 
+/**
+  Get the SBI implementation ID
+
+  This ID is used to idenetify a specific SBI implementation in order to work
+  around any quirks it might have.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[out] ImplId               The ID of the SBI implementation.
+  @retval EFI_SUCCESS              The operation succeeds.
+  // TODO: Can it fail?
+**/
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_GET_IMPL_ID)(
@@ -48,6 +73,18 @@ EFI_STATUS
   OUT UINTN                      *ImplId
   );
 
+/**
+  Get the SBI implementation version
+
+  The version of this SBI implementation.
+  The encoding of this number is determined by the specific SBI implementation.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[out] ImplVersion          The version of the SBI implementation.
+  @retval EFI_SUCCESS              The operation succeeds.
+  // TODO: Can it fail?
+**/
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_GET_IMPLVERSION)(
@@ -56,14 +93,39 @@ EFI_STATUS
   OUT UINTN                       *ImplVersion
   );
 
+/**
+  Probe whether an SBI extension is available
+
+  ProbeResult is set to 0 if the extension is not available or to an extension
+  specified value if it is available.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[in]  ExtensionId          The extension ID.
+  @param[out] ProbeResult          The return value of the probe.
+  @retval EFI_SUCCESS              The operation succeeds.
+  // TODO: What should be the return values?
+**/
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_PROBE_EXTENSION)(
   IN  EFI_PEI_SERVICES           **PeiServices,
   IN  PEI_RISCV_OPENSBI_BASE_PPI  *This,
-  IN  INTN                         ExtensionId
+  IN  INTN                         ExtensionId,
+  OUT INTN                        *ProbeResult
   );
 
+/**
+  Get the CPU's vendor ID
+
+  Reads the mvendorid CSR.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[out] MvendorId            The CPU's vendor ID.
+  @retval EFI_SUCCESS              The operation succeeds.
+  // TODO: Can it fail?
+**/
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_GET_MVENDOR_ID)(
@@ -72,6 +134,17 @@ EFI_STATUS
   OUT UINTN                       *MvendorId
   );
 
+/**
+  Get the CPU's architecture ID
+
+  Reads the marchid CSR.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[out] MarchId              The CPU's architecture ID.
+  @retval EFI_SUCCESS              The operation succeeds.
+  // TODO: Can it fail?
+**/
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_GET_MARCH_ID)(
@@ -80,6 +153,17 @@ EFI_STATUS
   OUT UINTN                       *MarchId
   );
 
+/**
+  Get the CPU's implementation ID
+
+  Reads the mimpid CSR.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[out] MimpId               The CPU's implementation ID.
+  @retval EFI_SUCCESS              The operation succeeds.
+  // TODO: Can it fail?
+**/
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_GET_MIMP_ID)(
@@ -112,55 +196,116 @@ struct _PEI_RISCV_OPENSBI_BASE_PPI {
 ///
 typedef struct _PEI_RISCV_OPENSBI_LEGACY_PPI PEI_RISCV_OPENSBI_LEGACY_PPI;
 
+/**
+  Clear pending timer interrupt bit and set timer for next event after StimeValue.
+
+  To clear the timer without scheduling a timer event, set StimeValue to a practically infinite value.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[in]  StimeValue           The time offset to the next scheduled timer interrupt.
+**/
 typedef
-EFI_STATUS
+VOID
 (EFIAPI *PEI_RISCV_OPENSBI_SET_TIMER)(
   IN  EFI_PEI_SERVICES             **PeiServices,
   IN  PEI_RISCV_OPENSBI_LEGACY_PPI  *This,
   IN  UINT64                         StimeValue
   );
 
+/**
+  Write a byte to the system's console.
+
+  Will block if characters are pending to be transmitted or the receiving
+  terminal is not ready to receive a byte. If the console, does not exist,
+  the byte is discarded.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[in]  ConsoleChar          The time offset to the next scheduled timer interrupt.
+**/
 typedef
-EFI_STATUS
+VOID
 (EFIAPI *PEI_RISCV_OPENSBI_CONSOLE_PUT_CHAR)(
   IN  EFI_PEI_SERVICES             **PeiServices,
   IN  PEI_RISCV_OPENSBI_LEGACY_PPI  *This,
   IN  INTN                           ConsoleChar
   );
 
+/**
+  Read a byte from the system's console.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[in]  ConsoleChar          The pointer in which the read byte is written.
+  @retval EFI_SUCCESS              The operation succeeds.
+  // TODO: Add failure code
+**/
 typedef
-EFI_STATUS
+VOID
 (EFIAPI *PEI_RISCV_OPENSBI_CONSOLE_GET_CHAR)(
   IN  EFI_PEI_SERVICES             **PeiServices,
   IN  PEI_RISCV_OPENSBI_LEGACY_PPI  *This,
   OUT INTN                          *ConsoleChar
   );
 
+/**
+  Clear pending IPIs for the calling hart.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+**/
 typedef
-EFI_STATUS
+VOID
 (EFIAPI *PEI_RISCV_OPENSBI_CLEAR_IPI)(
   IN  EFI_PEI_SERVICES             **PeiServices,
   IN  PEI_RISCV_OPENSBI_LEGACY_PPI  *This
   );
 
+/**
+  Send IPI to all harts specified in the mask.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[in]  HartMask             Virtual address pointing to the hart mask,
+                                   which is an array of `unsigned long`s.
+**/
 typedef
-EFI_STATUS
+VOID
 (EFIAPI *PEI_RISCV_OPENSBI_SEND_IPI)(
   IN  EFI_PEI_SERVICES             **PeiServices,
   IN  PEI_RISCV_OPENSBI_LEGACY_PPI  *This,
   IN  CONST UINTN                   *HartMask
   );
 
+/**
+  Instructs remote harts to execute a FENCE.I instruction. 
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[in]  HartMask             Virtual address pointing to the hart mask,
+                                   which is an array of `unsigned long`s.
+**/
 typedef
-EFI_STATUS
+VOID
 (EFIAPI *PEI_RISCV_OPENSBI_REMOTE_FENCE_I)(
   IN  EFI_PEI_SERVICES             **PeiServices,
   IN  PEI_RISCV_OPENSBI_LEGACY_PPI  *This,
   IN  CONST UINTN                   *HartMask
   );
 
+/**
+  Instructs remote harts to execute one or more SFENCE.VMA instructions over a range.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[in]  HartMask             Virtual address pointing to the hart mask,
+                                   which is an array of `unsigned long`s.
+  @param[in]  Start                The address of where the range begins.
+  @param[in]  Size                 The total size of the range.
+**/
 typedef
-EFI_STATUS
+VOID
 (EFIAPI *PEI_RISCV_OPENSBI_REMOTE_SFENCE_VMA)(
   IN  EFI_PEI_SERVICES             **PeiServices,
   IN  PEI_RISCV_OPENSBI_LEGACY_PPI  *This,
@@ -169,8 +314,19 @@ EFI_STATUS
   IN  UINTN                          Size
   );
 
+/**
+  Instructs remote harts to execute one or more SFENCE.VMA instructions over a range, limited to an ASID.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[in]  HartMask             Virtual address pointing to the hart mask,
+                                   which is an array of `unsigned long`s.
+  @param[in]  Start                The address of where the range begins.
+  @param[in]  Size                 The total size of the range.
+  @param[in]  Asid                 The ASID to limit the instruction to.
+**/
 typedef
-EFI_STATUS
+VOID
 (EFIAPI *PEI_RISCV_OPENSBI_REMOTE_SFENCE_VMA_ASID)(
   IN  EFI_PEI_SERVICES              **PeiServices,
   IN  PEI_RISCV_OPENSBI_LEGACY_PPI   *This,
@@ -180,6 +336,14 @@ EFI_STATUS
   IN  UINTN                           Asid
   );
 
+/**
+  Shuts all harts down.
+
+  Does not return.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+**/
 typedef
 VOID
 (EFIAPI *PEI_RISCV_OPENSBI_SHUTDOWN)(
@@ -216,13 +380,43 @@ struct _PEI_RISCV_OPENSBI_LEGACY_PPI {
 ///
 typedef struct _PEI_RISCV_OPENSBI_HSM_PPI PEI_RISCV_OPENSBI_HSM_PPI;
 
+/**
+  Politely ask the SBI to start a given hart.
+
+  This call may return before the hart has actually started executing, if the
+  SBI implementation can guarantee that the hart is actually going to start.
+
+  Before the hart jumps to StartAddr, the hart MUST configure PMP if present
+  and switch to S-mode.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[in]  StartAddr            The physical address, where the hart starts
+                                   executing from.
+  @param[in]  Priv                 An XLEN-bit value, which will be in register
+                                   a2 when the hart starts.
+  // TODO: Define error codes
+**/
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_HART_START)(
   IN  EFI_PEI_SERVICES             **PeiServices,
   IN  PEI_RISCV_OPENSBI_LEGACY_PPI  *This
+  IN  UINTN                          HartId,
+  IN  UINTN                          StartAddr,
+  IN  UINTN                          Priv,
   );
 
+/**
+  Return execution of the calling hart to SBI.
+
+  MUST be called in S-Mode with user interrupts disabled.
+  This call is not expected to return, unless a failure occurs.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  // TODO: Define error codes
+**/
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_HART_STOP)(
@@ -230,11 +424,25 @@ EFI_STATUS
   IN  PEI_RISCV_OPENSBI_LEGACY_PPI  *This
   );
 
+/**
+  Get the current status of a hart.
+
+  Since harts can transition between states at any time, the status retrieved
+  by this function may already be out of date, once it completes execution.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[out] HartStatus           The pointer in which the hart's status is
+                                   stored.
+  @retval EFI_SUCCESS              The operation succeeds.
+  @retval EFI_INVALID_PARAMETER    A parameter is invalid.
+**/
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_HART_GET_STATUS)(
   IN  EFI_PEI_SERVICES             **PeiServices,
-  IN  PEI_RISCV_OPENSBI_LEGACY_PPI  *This
+  IN  PEI_RISCV_OPENSBI_LEGACY_PPI  *This,
+  OUT UINTN                         *HartStatus
   );
 
 ///
@@ -260,6 +468,14 @@ struct _PEI_RISCV_OPENSBI_HSM_PPI {
 ///
 typedef struct _PEI_RISCV_OPENSBI_VENDOR_PPI PEI_RISCV_OPENSBI_VENDOR_PPI;
 
+/**
+  TODO
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[in]  ExtensionId          TODO
+  @retval TODO
+**/
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_VENDOR_CALL)(
@@ -290,6 +506,7 @@ struct _PEI_RISCV_OPENSBI_VENDOR_PPI {
 ///
 typedef struct _PEI_RISCV_OPENSBI_LIBRARY_PPI PEI_RISCV_OPENSBI_LIBRARY_PPI;
 
+// TODO: Likely I will move this to a header
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_LIBRARY_SCRATCH_THIS_HART_PTR)(
@@ -298,6 +515,7 @@ EFI_STATUS
   OUT struct sbi_scratch            **ScratchPtr
   );
 
+// TODO: Likely I will move this to a header
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_LIBRARY_PLATFORM_PTR)(
@@ -307,6 +525,7 @@ EFI_STATUS
   OUT const struct sbi_platform     **PlatformPtr
   );
 
+// TODO: Likely I will move this to a header
 typedef
 EFI_STATUS
 (EFIAPI *PEI_RISCV_OPENSBI_LIBRARY_HART_ID_TO_SCRATCH)(
@@ -317,6 +536,23 @@ EFI_STATUS
   OUT const struct sbi_scratch     **ScratchPtr
   );
 
+/**
+  Initialize the OpenSBI library for the current hart and jump to the next
+  booting stage.
+
+  The following prerequisites MUST be met:
+  1. The 'mscratch' CSR is pointing to sbi_scratch of current HART
+  2. Stack pointer (SP) is setup for current HART
+  3. Interrupts are disabled in MSTATUS CSR
+  4. All interrupts are disabled in MIE CSR
+
+  This call does not return.
+
+  @param[in]  PeiServices          The PEI Services pointer.
+  @param[in]  This                 The PPI instance pointer.
+  @param[in]  ScratchPtr           The pointer to the current hart's scratch
+                                   space.
+**/
 typedef
 VOID
 (EFIAPI *PEI_RISCV_OPENSBI_LIBRARY_SBI_INIT)(
