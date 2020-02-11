@@ -109,6 +109,8 @@
   HobLib|MdePkg/Library/PeiHobLib/PeiHobLib.inf
   MemoryAllocationLib|MdePkg/Library/PeiMemoryAllocationLib/PeiMemoryAllocationLib.inf
   ExtractGuidedSectionLib|MdePkg/Library/PeiExtractGuidedSectionLib/PeiExtractGuidedSectionLib.inf
+
+[LibraryClasses.IA86.PEIM, LibraryClasses.X64.PEIM]
   LockBoxLib|MdeModulePkg/Library/SmmLockBoxLib/SmmLockBoxPeiLib.inf
 
 [LibraryClasses.common.DXE_CORE]
@@ -228,7 +230,6 @@
   MdeModulePkg/Bus/Pci/PciBusDxe/PciBusDxe.inf
   MdeModulePkg/Bus/Pci/IncompatiblePciDeviceSupportDxe/IncompatiblePciDeviceSupportDxe.inf
   MdeModulePkg/Bus/Pci/NvmExpressDxe/NvmExpressDxe.inf
-  MdeModulePkg/Bus/Pci/NvmExpressPei/NvmExpressPei.inf
   MdeModulePkg/Bus/Pci/SdMmcPciHcDxe/SdMmcPciHcDxe.inf
   MdeModulePkg/Bus/Pci/SdMmcPciHcPei/SdMmcPciHcPei.inf
   MdeModulePkg/Bus/Sd/EmmcBlockIoPei/EmmcBlockIoPei.inf
@@ -251,7 +252,6 @@
   MdeModulePkg/Bus/Pci/SataControllerDxe/SataControllerDxe.inf
   MdeModulePkg/Bus/Ata/AtaBusDxe/AtaBusDxe.inf
   MdeModulePkg/Bus/Ata/AtaAtapiPassThru/AtaAtapiPassThru.inf
-  MdeModulePkg/Bus/Ata/AhciPei/AhciPei.inf
   MdeModulePkg/Bus/Scsi/ScsiBusDxe/ScsiBusDxe.inf
   MdeModulePkg/Bus/Scsi/ScsiDiskDxe/ScsiDiskDxe.inf
   MdeModulePkg/Bus/Usb/UsbBusDxe/UsbBusDxe.inf
@@ -395,7 +395,6 @@
     <LibraryClasses>
       LockBoxLib|MdeModulePkg/Library/LockBoxNullLib/LockBoxNullLib.inf
   }
-  MdeModulePkg/Universal/Acpi/FirmwarePerformanceDataTableDxe/FirmwarePerformanceDxe.inf
   MdeModulePkg/Universal/Acpi/BootGraphicsResourceTableDxe/BootGraphicsResourceTableDxe.inf
   MdeModulePkg/Universal/SectionExtractionDxe/SectionExtractionDxe.inf {
     <LibraryClasses>
@@ -486,6 +485,13 @@
   MdeModulePkg/Universal/RegularExpressionDxe/RegularExpressionDxe.inf
   MdeModulePkg/Universal/SmmCommunicationBufferDxe/SmmCommunicationBufferDxe.inf
   MdeModulePkg/Universal/Disk/RamDiskDxe/RamDiskDxe.inf
+
+  # All need SMM LockBoxLib. No other platforms have SMM.
+  # TODO: Putting them here is a workaround, these PEIs should work even on other platforms.
+  MdeModulePkg/Bus/Ata/AhciPei/AhciPei.inf
+  MdeModulePkg/Bus/Pci/NvmExpressPei/NvmExpressPei.inf
+  MdeModulePkg/Universal/Acpi/FirmwarePerformanceDataTableDxe/FirmwarePerformanceDxe.inf
+
 
 [Components.X64]
   MdeModulePkg/Universal/CapsulePei/CapsuleX64.inf
