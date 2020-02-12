@@ -82,11 +82,18 @@
 
 [LibraryClasses.common.DXE_RUNTIME_DRIVER]
   TimerLib|RiscVPkg/Library/RiscVTimerLib/BaseRiscVTimerLib.inf
+  ResetSystemLib|RiscVPkg/Library/ResetSystemLib/ResetSystemLib.inf
+  UefiRuntimeLib|MdePkg/Library/UefiRuntimeLib/UefiRuntimeLib.inf
+  ReportStatusCodeLib|MdeModulePkg/Library/RuntimeDxeReportStatusCodeLib/RuntimeDxeReportStatusCodeLib.inf
 
 [LibraryClasses.common.UEFI_DRIVER]
   TimerLib|RiscVPkg/Library/RiscVTimerLib/BaseRiscVTimerLib.inf
 
 [Components]
+  #
+  # DXE Phase modules
+  #
   RiscVPkg/Universal/CpuDxe/CpuDxe.inf
   RiscVPkg/Universal/SmbiosDxe/RiscVSmbiosDxe.inf
+  MdeModulePkg/Universal/ResetSystemRuntimeDxe/ResetSystemRuntimeDxe.inf
 
