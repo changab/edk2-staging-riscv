@@ -35,4 +35,3 @@
 [LibraryClasses]
   DebugLib
   RiscVCpuLib
-  RiscVOpensbiLib
