@@ -48,7 +48,6 @@
   RiscVCpuLib
   RiscVOpensbiLib
   RiscVOpensbiPlatformLib
-  SerialPortLib
 
 [Ppis]
   gEfiTemporaryRamSupportPpiGuid # PPI ALWAYS_PRODUCED

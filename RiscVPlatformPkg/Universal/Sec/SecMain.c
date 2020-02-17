@@ -10,7 +10,6 @@
 #include <SecMain.h>
 #include <IndustryStandard/RiscVOpensbi.h>
 #include <Library/DebugPrintErrorLevelLib.h>
-#include <Library/SerialPortLib.h>
 #include <Library/PrintLib.h>
 #include <sbi/sbi_console.h>  // Reference to header file in opensbi
 #include <sbi/sbi_hart.h>     // Reference to header file in opensbi
