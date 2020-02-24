@@ -16,8 +16,18 @@
 #include <sbi/sbi_scratch.h>  // Reference to header file in opensbi
 #include <sbi/sbi_platform.h> // Reference to header file in opensbi
 #include <sbi/sbi_init.h>     // Reference to header file in opensbi
+#include <Ppi/RiscVOpenSbiPpi.h>
 
 #define DEBUG_MSG_HART_INFO 0
+
+extern PEI_RISCV_OPENSBI_BASE_PPI    mOpenSbiBasePpi;
+extern PEI_RISCV_OPENSBI_HSM_PPI     mOpenSbiHsmPpi;
+extern PEI_RISCV_OPENSBI_TIME_PPI    mOpenSbiTimePpi;
+extern PEI_RISCV_OPENSBI_IPI_PPI     mOpenSbiIpiPpi;
+extern PEI_RISCV_OPENSBI_RFNC_PPI    mOpenSbiRfncPpi;
+extern PEI_RISCV_OPENSBI_VENDOR_PPI  mOpenSbiVendorPpi;
+extern PEI_RISCV_OPENSBI_LIBRARY_PPI mOpenSbiLibraryPpi;
+extern PEI_RISCV_OPENSBI_LEGACY_PPI  mOpenSbiLegacyPpi;
 
 UINTN HartsIn = 0;
 
@@ -30,6 +40,47 @@ STATIC EFI_PEI_TEMPORARY_RAM_DONE_PPI mTemporaryRamDonePpi = {
 };
 
 STATIC EFI_PEI_PPI_DESCRIPTOR mPrivateDispatchTable[] = {
+  {
+    EFI_PEI_PPI_DESCRIPTOR_PPI,
+    &gOpenSbiBasePpiGuid,
+    &mOpenSbiBasePpi
+  },
+  {
+    EFI_PEI_PPI_DESCRIPTOR_PPI,
+    &gOpenSbiLegacyPpiGuid,
+    &mOpenSbiLegacyPpi
+  },
+  // HSM is not implemented in OpenSBI 0.6 but defined in SBI 0.2
+  //{
+  //  EFI_PEI_PPI_DESCRIPTOR_PPI,
+  //  &gOpenSbiHsmPpiGuid,
+  //  &mOpenSbiHsmPpi
+  //},
+  {
+    EFI_PEI_PPI_DESCRIPTOR_PPI,
+    &gOpenSbiTimePpiGuid,
+    &mOpenSbiTimePpi
+  },
+  {
+    EFI_PEI_PPI_DESCRIPTOR_PPI,
+    &gOpenSbiIpiPpiGuid,
+    &mOpenSbiIpiPpi
+  },
+  {
+    EFI_PEI_PPI_DESCRIPTOR_PPI,
+    &gOpenSbiRfncPpiGuid,
+    &mOpenSbiRfncPpi
+  },
+  {
+    EFI_PEI_PPI_DESCRIPTOR_PPI,
+    &gOpenSbiVendorPpiGuid,
+    &mOpenSbiVendorPpi
+  },
+  {
+    EFI_PEI_PPI_DESCRIPTOR_PPI,
+    &gOpenSbiLibraryPpiGuid,
+    &mOpenSbiLibraryPpi
+  },
   {
     EFI_PEI_PPI_DESCRIPTOR_PPI,
     &gEfiTemporaryRamSupportPpiGuid,
