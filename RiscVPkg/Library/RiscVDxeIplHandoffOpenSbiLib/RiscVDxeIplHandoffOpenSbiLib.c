@@ -15,6 +15,7 @@
 #include <sbi/sbi_hart.h>
 #include <sbi/sbi_init.h>
 #include <sbi/sbi_scratch.h>
+#include <sbi/sbi_platform.h>
 #include <Library/RiscVCpuLib.h>
 #include <Library/RiscVPlatformDxeIpl.h>
 
@@ -78,6 +79,13 @@ RiscVPlatformHandOffToDxeCore (
   EFI_STATUS Status;
   struct sbi_scratch *ThisScratch;
   OPENSBI_SWITCH_MODE_CONTEXT OpenSbiSwitchModeContext;
+  struct sbi_platform *ThisSbiPlatform;
+  EFI_RISCV_OPENSBI_FIRMWARE_CONTEXT *FirmwareContext;
+
+  ThisScratch = sbi_scratch_thishart_ptr ();
+  ThisSbiPlatform = (struct sbi_platform *)sbi_platform_ptr(ThisScratch);
+  FirmwareContext = (EFI_RISCV_OPENSBI_FIRMWARE_CONTEXT *)ThisSbiPlatform->firmware_context;
+
 
   //
   // End of PEI phase signal
@@ -93,7 +101,6 @@ RiscVPlatformHandOffToDxeCore (
   OpenSbiSwitchModeContext.TopOfStack = TopOfStack;
   OpenSbiSwitchModeContext.HobList = HobList;
   OpenSbiSwitchModeContext.DxeCoreEntryPoint = DxeCoreEntryPoint;
-  ThisScratch = sbi_scratch_thishart_ptr ();
   ThisScratch->next_arg1 = (UINTN)&OpenSbiSwitchModeContext;
   ThisScratch->next_addr = (UINTN)RiscVDxeIplHandoffOpenSbiHandler;
   ThisScratch->next_mode = PRV_S;
@@ -105,5 +112,13 @@ RiscVPlatformHandOffToDxeCore (
   DEBUG ((DEBUG_INFO, "          OpenSBI Switch mode arg1: 0x%x\n", (UINTN)&OpenSbiSwitchModeContext));
   DEBUG ((DEBUG_INFO, "          OpenSBI Switch mode handler address: 0x%x\n", (UINTN)RiscVDxeIplHandoffOpenSbiHandler));
   DEBUG ((DEBUG_INFO, "          OpenSBI Switch mode to privilege 0x%x\n", PRV_S));
-  sbi_init (ThisScratch);
+  //sbi_init (ThisScratch);
+  UINTN ThisHartid = sbi_current_hartid();
+  FirmwareContext->HartSpecific[ThisHartid]->HartSwitchMode(
+    ThisHartid,
+    (UINTN)&OpenSbiSwitchModeContext,
+    (UINTN)RiscVDxeIplHandoffOpenSbiHandler,
+    PRV_S,
+    FALSE
+  );
 }

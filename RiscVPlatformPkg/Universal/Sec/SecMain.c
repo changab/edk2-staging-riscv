@@ -390,7 +390,11 @@ EFI_STATUS EFIAPI TemporaryRamDone (VOID)
   return EFI_SUCCESS;
 }
 
-static VOID EFIAPI PeiCore(VOID)
+VOID
+EFIAPI
+PeiCore (
+  IN  UINTN ThisHartId
+)
 {
   EFI_SEC_PEI_HAND_OFF        SecCoreData;
   EFI_PEI_CORE_ENTRY_POINT    PeiCoreEntryPoint;
@@ -420,8 +424,9 @@ static VOID EFIAPI PeiCore(VOID)
   }
 
   //
-  // Set up OpepSBI firmware context poitner on boot hart OpenSbi scratch. Firmware context residents in stack and will be
-  // switched to memory when temporary ram migration.
+  // Set up OpepSBI firmware context pointer on boot hart OpenSbi scratch.
+  // Firmware context residents in stack and will be switched to memory when
+  // temporary RAM migration.
   //
   ZeroMem ((VOID *)&FirmwareContext, sizeof (EFI_RISCV_OPENSBI_FIRMWARE_CONTEXT));
   ThisSbiPlatform = (struct sbi_platform *)sbi_platform_ptr(sbi_scratch_thishart_ptr());
@@ -458,6 +463,20 @@ static VOID EFIAPI PeiCore(VOID)
   //
   (*PeiCoreEntryPoint) (&SecCoreData, (EFI_PEI_PPI_DESCRIPTOR *)&mPrivateDispatchTable);
 }
+
+VOID
+EFIAPI
+RiscVOpenSbiHartSwitchMode (
+  IN  UINTN   FuncArg0,
+  IN  UINTN   FuncArg1,
+  IN  UINTN   NextAddr,
+  IN  UINTN   NextMode,
+  IN  BOOLEAN NextVirt
+  )
+{
+  sbi_hart_switch_mode(FuncArg0, FuncArg1, NextAddr, NextMode, NextVirt);
+}
+
 /**
   This function initilizes hart specific information and SBI.
   For the boot hart, it boots system through PEI core and initial SBI in the DXE IPL.
@@ -469,7 +488,7 @@ static VOID EFIAPI PeiCore(VOID)
   |----Scratch ends                             |                                           |
   |                                             | sizeof (sbi_scratch)                      |
   |                                            _|                                           |
-  |----Scratch buffer start s                  <----- *scratch                              |
+  |----Scratch buffer start s                  <----- *Scratch                              |
   |----Firmware Context Hart-specific ends     _                                            |
   |                                             |                                           |
   |                                             | FIRMWARE_CONTEXT_HART_SPECIFIC_SIZE       |
@@ -485,14 +504,14 @@ static VOID EFIAPI PeiCore(VOID)
   |----Hart stack bottom
 
 **/
-VOID EFIAPI SecCoreStartUpWithStack(UINTN hartid, struct sbi_scratch *scratch)
+VOID EFIAPI SecCoreStartUpWithStack(UINTN HartId, struct sbi_scratch *Scratch)
 {
   EFI_RISCV_FIRMWARE_CONTEXT_HART_SPECIFIC *HartFirmwareContext;
 
   //
   // Setup EFI_RISCV_FIRMWARE_CONTEXT_HART_SPECIFIC for each hart.
   //
-  HartFirmwareContext = (EFI_RISCV_FIRMWARE_CONTEXT_HART_SPECIFIC *)((UINT8 *)scratch - FIRMWARE_CONTEXT_HART_SPECIFIC_SIZE);
+  HartFirmwareContext = (EFI_RISCV_FIRMWARE_CONTEXT_HART_SPECIFIC *)((UINT8 *)Scratch - FIRMWARE_CONTEXT_HART_SPECIFIC_SIZE);
   HartFirmwareContext->IsaExtensionSupported = RiscVReadMachineIsa ();
   HartFirmwareContext->MachineVendorId.Value64_L = RiscVReadMachineVendorId ();
   HartFirmwareContext->MachineVendorId.Value64_H = 0;
@@ -500,11 +519,12 @@ VOID EFIAPI SecCoreStartUpWithStack(UINTN hartid, struct sbi_scratch *scratch)
   HartFirmwareContext->MachineArchId.Value64_H = 0;
   HartFirmwareContext->MachineImplId.Value64_L = RiscVReadMachineImplementId ();
   HartFirmwareContext->MachineImplId.Value64_H = 0;
+  HartFirmwareContext->HartSwitchMode = RiscVOpenSbiHartSwitchMode;
 
 #if DEBUG_MSG_HART_INFO
-  while (HartsIn != hartid);
-  DEBUG ((DEBUG_INFO, "Initial Firmware Context Hart-specific for HART ID:%d\n", hartid));
-  DEBUG ((DEBUG_INFO, "       Scratch at address: 0x%x\n", scratch));
+  while (HartsIn != HartId);
+  DEBUG ((DEBUG_INFO, "Initial Firmware Context Hart-specific for HART ID:%d\n", HartId));
+  DEBUG ((DEBUG_INFO, "       Scratch at address: 0x%x\n", Scratch));
   DEBUG ((DEBUG_INFO, "       Firmware Context Hart-specific at address: 0x%x\n", HartFirmwareContext));
   DEBUG ((DEBUG_INFO, "       stack pointer at address: 0x%x\n", stack_point));
   DEBUG ((DEBUG_INFO, "                MISA: 0x%x\n", HartFirmwareContext->IsaExtensionSupported));
@@ -514,10 +534,11 @@ VOID EFIAPI SecCoreStartUpWithStack(UINTN hartid, struct sbi_scratch *scratch)
   HartsIn ++;
   for (;;);
 #endif
-  if (hartid == FixedPcdGet32(PcdBootHartId)) {
-    sbi_console_init(scratch); // Initial OpenSBI internal serial console on boot Hart.
-    sbi_ecall_init(); // Initial ecall registration in SEC phase for handling further traps.
-    PeiCore();
+  if (HartId == FixedPcdGet32(PcdBootHartId)) {
+    Scratch->next_addr = (UINTN)PeiCore;
+    Scratch->next_mode = PRV_M;
+    DEBUG ((DEBUG_INFO, "%a: Initializing OpenSBI library for booting hart\n", __FUNCTION__));
+    sbi_init(Scratch);
   }
-  sbi_init(scratch);
+  sbi_init(Scratch);
 }

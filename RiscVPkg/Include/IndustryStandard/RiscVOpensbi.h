@@ -102,14 +102,25 @@
 
 #define RISC_V_MAX_HART_SUPPORTED 16
 
+typedef
+VOID
+(EFIAPI *RISCV_HART_SWITCH_MODE)(
+  IN  UINTN   FuncArg0,
+  IN  UINTN   FuncArg1,
+  IN  UINTN   NextAddr,
+  IN  UINTN   NextMode,
+  IN  BOOLEAN NextVirt
+  );
+
 //
-// keep the structure member in 64-bit alignment.
+// Keep the structure member in 64-bit alignment.
 //
 typedef struct {
-    UINT64          IsaExtensionSupported;  // The ISA extension this core supported.
-    RISCV_UINT128   MachineVendorId;        // Machine vendor ID
-    RISCV_UINT128   MachineArchId;          // Machine Architecture ID
-    RISCV_UINT128   MachineImplId;          // Machine Implementation ID
+    UINT64                 IsaExtensionSupported;  // The ISA extension this core supported.
+    RISCV_UINT128          MachineVendorId;        // Machine vendor ID
+    RISCV_UINT128          MachineArchId;          // Machine Architecture ID
+    RISCV_UINT128          MachineImplId;          // Machine Implementation ID
+    RISCV_HART_SWITCH_MODE HartSwitchMode;         // OpenSBI's function to switch the mode of a hart
 } EFI_RISCV_FIRMWARE_CONTEXT_HART_SPECIFIC;
 
 #define FIRMWARE_CONTEXT_HART_SPECIFIC_SIZE  (64 * 7)
