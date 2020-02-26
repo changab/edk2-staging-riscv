@@ -77,6 +77,9 @@
 [Sources.AARCH64]
   Rand/CryptRand.c
 
+[Sources.RISCV64]
+  Rand/CryptRand.c
+
 [Packages]
   MdePkg/MdePkg.dec
   CryptoPkg/CryptoPkg.dec
