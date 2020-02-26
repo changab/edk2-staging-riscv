@@ -10,7 +10,7 @@
 [Defines]
   INF_VERSION                    = 0x0001001b
   BASE_NAME                      = SecMain
-  FILE_GUID                      = df1ccef6-f301-4a63-9661-fc6030dcc880
+  FILE_GUID                      = 743467B0-849F-4ACE-9BFB-515CE6206388
   MODULE_TYPE                    = SEC
   VERSION_STRING                 = 1.0
   ENTRY_POINT                    = SecMain

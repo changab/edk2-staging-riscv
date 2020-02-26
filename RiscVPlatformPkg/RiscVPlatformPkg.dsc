@@ -67,6 +67,14 @@
 [LibraryClasses.common.DXE_DRIVER]
   PlatformBootManagerLib|RiscVPlatformPkg/Library/PlatformBootManagerLib/PlatformBootManagerLib.inf
 
+[Components.common]
+  RiscVPlatformPkg/Library/OpensbiPlatformLibNull/OpensbiPlatformLibNull.inf
+  RiscVPlatformPkg/Library/PlatformMemoryTestLibNull/PlatformMemoryTestLibNull.inf
+  RiscVPlatformPkg/Library/PlatformBootManagerLib/PlatformBootManagerLib.inf
+  RiscVPlatformPkg/Library/PlatformUpdateProgressLibNull/PlatformUpdateProgressLibNull.inf
+  RiscVPlatformPkg/Library/FirmwareContextProcessorSpecificLib/FirmwareContextProcessorSpecificLib.inf
+  RiscVPlatformPkg/Library/RiscVPlatformTempMemoryInitLibNull/RiscVPlatformTempMemoryInitLibNull.inf
+
 [Components.common.SEC]
   RiscVPlatformPkg/Universal/Sec/SecMain.inf
 

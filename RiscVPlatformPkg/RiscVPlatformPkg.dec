@@ -11,15 +11,15 @@
   DEC_SPECIFICATION              = 0x0001001b
   PACKAGE_NAME                   = RiscVPlatformPkg
   PACKAGE_UNI_FILE               = RiscVPlatformPkg.uni
-  PACKAGE_GUID                   = 6A67AF99-4592-40F8-B6BE-62BCA10DA1EC
+  PACKAGE_GUID                   = B51DBDBB-B43D-4D45-8CDD-1D6D1C691003
   PACKAGE_VERSION                = 1.0
 
 [Includes]
   Include
 
 [LibraryClasses]
-
-[LibraryClasses.RISCV32, LibraryClasses.RISCV64]
+  FirmwareContextProcessorSpecificLib|Include/Library/FirmwareContextProcessorSpecificLib.h
+  RiscVPlatformTempMemoryInitLib|Include/Library/RiscVPlatformTempMemoryInitLib.h
 
 [Guids]
   gUefiRiscVPlatformPkgTokenSpaceGuid  = {0x6A67AF99, 0x4592, 0x40F8, { 0xB6, 0xBE, 0x62, 0xBC, 0xA1, 0x0D, 0xA1, 0xEC}}

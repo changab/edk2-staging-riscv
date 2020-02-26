@@ -21,6 +21,6 @@
 //          a1 Temporary memory size.
 //
 ASM_PFX(RiscVPlatformTemporaryMemInit):
-    li      a0, FixedPcdGet32 (PcdRiscVSecPeiTempRamBase)
-    li      a1, FixedPcdGet32 (PcdRiscVSecPeiTempRamSize)
+    li      a0, FixedPcdGet32 (PcdTemporaryRamBase)
+    li      a1, FixedPcdGet32 (PcdTemporaryRamSize)
     ret

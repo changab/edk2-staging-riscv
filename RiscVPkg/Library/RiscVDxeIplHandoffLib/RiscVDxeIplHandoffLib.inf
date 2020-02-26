@@ -23,7 +23,6 @@
 
 [Packages]
   MdePkg/MdePkg.dec
-  RiscVPkg/RiscVPkg.dec
 
 [LibraryClasses]
   DebugLib

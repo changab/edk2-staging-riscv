@@ -10,7 +10,7 @@
   INF_VERSION                    = 0x0001001b
   BASE_NAME                      = CpuDxe
   MODULE_UNI_FILE                = CpuDxe.uni
-  FILE_GUID                      = 1A1E4886-9517-440e-9FDE-3BE44CEE2136
+  FILE_GUID                      = 2AEB1f3E-5B6B-441B-92C1-4A9E6FC85E92
   MODULE_TYPE                    = DXE_DRIVER
   VERSION_STRING                 = 1.0
 

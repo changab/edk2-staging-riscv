@@ -62,6 +62,8 @@
   UefiLib|MdePkg/Library/UefiLib/UefiLib.inf
   DevicePathLib|MdePkg/Library/UefiDevicePathLibDevicePathProtocol/UefiDevicePathLibDevicePathProtocol.inf
   RiscVPlatformTimerLib|RiscVPkg/Library/RiscVPlatformTimerLibNull/RiscVPlatformTimerLib.inf
+  RiscVPlatformDxeIplLib|RiscVPkg/Library/RiscVDxeIplHandoffOpenSbiLib/RiscVDxeIplHandoffOpenSbiLib.inf
+  PeiServicesTablePointerLib|RiscVPkg/Library/PeiServicesTablePointerLibOpenSbi/PeiServicesTablePointerLibOpenSbi.inf
 
 [LibraryClasses.common.PEI_CORE]
   PeiServicesTablePointerLib|RiscVPkg/Library/PeiServicesTablePointerLibOpenSbi/PeiServicesTablePointerLibOpenSbi.inf
@@ -87,6 +89,14 @@
   TimerLib|RiscVPkg/Library/RiscVTimerLib/BaseRiscVTimerLib.inf
 
 [Components]
+  RiscVPkg/Library/RiscVDxeIplHandoffLib/RiscVDxeIplHandoffLib.inf
+  RiscVPkg/Library/RiscVTimerLib/BaseRiscVTimerLib.inf
+  RiscVPkg/Library/RiscVExceptionLib/CpuExceptionHandlerDxeLib.inf
+  RiscVPkg/Library/RiscVDxeIplHandoffOpenSbiLib/RiscVDxeIplHandoffOpenSbiLib.inf
+  RiscVPkg/Library/PeiServicesTablePointerLibOpenSbi/PeiServicesTablePointerLibOpenSbi.inf
+  RiscVPkg/Library/RiscVOpensbiLib/RiscVOpensbiLib.inf
+  RiscVPkg/Library/RiscVPlatformTimerLibNull/RiscVPlatformTimerLib.inf
+  RiscVPkg/Library/RiscVCpuLib/RiscVCpuLib.inf
+
   RiscVPkg/Universal/CpuDxe/CpuDxe.inf
   RiscVPkg/Universal/SmbiosDxe/RiscVSmbiosDxe.inf
-
