@@ -187,7 +187,7 @@
   RiscVOpensbiLib|RiscVPkg/Library/RiscVOpensbiLib/RiscVOpensbiLib.inf
   RiscVPlatformDxeIplLib|RiscVPkg/Library/RiscVDxeIplHandoffOpenSbiLib/RiscVDxeIplHandoffOpenSbiLib.inf
 
-[LibraryClasses.EBC]
+[LibraryClasses.EBC, LibraryClasses.RISCV64]
   LockBoxLib|MdeModulePkg/Library/LockBoxNullLib/LockBoxNullLib.inf
 
 [PcdsFeatureFlag]
