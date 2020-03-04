@@ -443,7 +443,8 @@ EFI_STATUS EFIAPI TemporaryRamDone (VOID)
 VOID
 EFIAPI
 PeiCore (
-  IN  UINTN ThisHartId
+  IN  UINTN ThisHartId,
+  IN  UINTN NextArg1
 )
 {
   EFI_SEC_PEI_HAND_OFF        SecCoreData;
@@ -570,6 +571,7 @@ VOID EFIAPI SecCoreStartUpWithStack(UINTN HartId, struct sbi_scratch *Scratch)
   HartFirmwareContext->MachineImplId.Value64_L = RiscVReadMachineImplementId ();
   HartFirmwareContext->MachineImplId.Value64_H = 0;
   HartFirmwareContext->HartSwitchMode = RiscVOpenSbiHartSwitchMode;
+  HartFirmwareContext->Dtb = Scratch->next_arg1;
 
 #if DEBUG_MSG_HART_INFO
   while (HartsIn != HartId);

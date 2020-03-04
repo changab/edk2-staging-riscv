@@ -78,5 +78,3 @@
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdScratchRamSize
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdTemporaryRamBase
   gUefiRiscVPlatformPkgTokenSpaceGuid.PcdTemporaryRamSize
-
-
