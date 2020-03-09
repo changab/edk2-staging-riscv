@@ -62,7 +62,7 @@
   UefiLib|MdePkg/Library/UefiLib/UefiLib.inf
   DevicePathLib|MdePkg/Library/UefiDevicePathLibDevicePathProtocol/UefiDevicePathLibDevicePathProtocol.inf
   RiscVPlatformTimerLib|RiscVPkg/Library/RiscVPlatformTimerLibNull/RiscVPlatformTimerLib.inf
-  RiscVPlatformDxeIplLib|RiscVPkg/Library/RiscVDxeIplHandoffOpenSbiLib/RiscVDxeIplHandoffOpenSbiLib.inf
+  DxeIplHandoffLib|RiscVPkg/Library/RiscVDxeIplHandoffOpenSbiLib/RiscVDxeIplHandoffOpenSbiLib.inf
   PeiServicesTablePointerLib|RiscVPkg/Library/PeiServicesTablePointerLibOpenSbi/PeiServicesTablePointerLibOpenSbi.inf
 
 [LibraryClasses.common.PEI_CORE]
@@ -70,7 +70,7 @@
 
 [LibraryClasses.common.PEIM]
   PeiServicesTablePointerLib|RiscVPkg/Library/PeiServicesTablePointerLibOpenSbi/PeiServicesTablePointerLibOpenSbi.inf
-  RiscVPlatformDxeIplLib|RiscVPkg/Library/RiscVDxeIplHandoffOpenSbiLib/RiscVDxeIplHandoffOpenSbiLib.inf
+  DxeIplHandoffLib|RiscVPkg/Library/RiscVDxeIplHandoffOpenSbiLib/RiscVDxeIplHandoffOpenSbiLib.inf
   HobLib|MdePkg/Library/PeiHobLib/PeiHobLib.inf
   MemoryAllocationLib|MdePkg/Library/PeiMemoryAllocationLib/PeiMemoryAllocationLib.inf
   PeimEntryPoint|MdePkg/Library/PeimEntryPoint/PeimEntryPoint.inf
