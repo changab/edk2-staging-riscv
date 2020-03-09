@@ -183,9 +183,7 @@
   NULL|MdePkg/Library/BaseStackCheckLib/BaseStackCheckLib.inf
 
 [LibraryClasses.RISCV64]
-  RiscVCpuLib|RiscVPkg/Library/RiscVCpuLib/RiscVCpuLib.inf
-  RiscVOpensbiLib|RiscVPkg/Library/RiscVOpensbiLib/RiscVOpensbiLib.inf
-  RiscVPlatformDxeIplLib|RiscVPkg/Library/RiscVDxeIplHandoffOpenSbiLib/RiscVDxeIplHandoffOpenSbiLib.inf
+  DxeIplHandoffLib|MdeModulePkg/Library/DxeIplHandoffLibNull/DxeIplHandoffLibNull.inf
 
 [LibraryClasses.EBC, LibraryClasses.RISCV64]
   LockBoxLib|MdeModulePkg/Library/LockBoxNullLib/LockBoxNullLib.inf
@@ -326,6 +324,7 @@
   MdeModulePkg/Library/BaseBmpSupportLib/BaseBmpSupportLib.inf
   MdeModulePkg/Library/DisplayUpdateProgressLibGraphics/DisplayUpdateProgressLibGraphics.inf
   MdeModulePkg/Library/DisplayUpdateProgressLibText/DisplayUpdateProgressLibText.inf
+  MdeModulePkg/Library/DxeIplHandoffLibNull/DxeIplHandoffLibNull.inf
 
   MdeModulePkg/Universal/BdsDxe/BdsDxe.inf
   MdeModulePkg/Application/BootManagerMenuApp/BootManagerMenuApp.inf
