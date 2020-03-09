@@ -58,24 +58,12 @@
 
     ## options defined ci/Plugin/SpellCheck
     "SpellCheck": {
-        "AuditOnly": True,           # Fails test but run in AuditOnly mode to collect log
+        "AuditOnly": False,
         "IgnoreStandardPaths": [     # Standard Plugin defined paths that should be ignore
             "*.c", "*.h", "*.s", "*.asl", "*.inf"
         ],
         "IgnoreFiles": [],
-        "ExtendWords": [           # words to extend to the dictionary for this package
-            "LIGHTGRAY",
-            "DARKGRAY",
-            "LIGHTBLUE",
-            "LIGHTGREEN",
-            "LIGHTCYAN",
-            "LIGHTRED",
-            "LIGHTMAGENTA",
-            "FVMAIN",
-            "VARCHECKPCD",
-            "Getxx",
-            "lzturbo"
-        ],
+        "ExtendWords": [],           # words to extend to the dictionary for this package
         "AdditionalIncludePaths": [] # Additional paths to spell check relative to package root (wildcards supported)
     }
 }
